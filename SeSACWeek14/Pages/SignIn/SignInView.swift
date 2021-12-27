@@ -16,7 +16,6 @@ protocol ViewRepresentable {
 
 class SignInView: UIView, ViewRepresentable {
     
-    
     let usernameTextField = UITextField()
     let passwordTextField = UITextField()
     let signInButton = UIButton()

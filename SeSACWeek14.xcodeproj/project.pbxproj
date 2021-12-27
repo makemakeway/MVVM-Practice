@@ -177,8 +177,8 @@
 		C26787AE2779DBEB00BF243D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				C26787A727795EEA00BF243D /* SignInViewModel.swift */,
 				C26787B72779FB5500BF243D /* SignUpViewModel.swift */,
+				C26787A727795EEA00BF243D /* SignInViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
