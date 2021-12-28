@@ -19,8 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: windowScene)
-        
-        if UserDefaults.standard.string(forKey: <#T##String#>)
+    
         
         let vc = SignInViewController()
         let nvc = UINavigationController(rootViewController: vc)
