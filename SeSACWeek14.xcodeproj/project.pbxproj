@@ -31,6 +31,12 @@
 		C26787C1277AA61500BF243D /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C0277AA61500BF243D /* Actor.swift */; };
 		C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C2277AAA7B00BF243D /* ActorViewModel.swift */; };
 		C26787C6277AAB8400BF243D /* ActorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C5277AAB8400BF243D /* ActorViewController.swift */; };
+		C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C8277BF2AB00BF243D /* EndPoint.swift */; };
+		C26787CC277C3B7E00BF243D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787CB277C3B7E00BF243D /* BoardView.swift */; };
+		C26E91BD277C7E3300ED65E2 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C26E91BC277C7E3300ED65E2 /* SkeletonView */; };
+		C26E91C0277C836400ED65E2 /* ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */; };
+		C26E91C2277C8FF600ED65E2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91C1277C8FF600ED65E2 /* Board.swift */; };
+		C26E91C4277C95F400ED65E2 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +84,11 @@
 		C26787C0277AA61500BF243D /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
 		C26787C2277AAA7B00BF243D /* ActorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorViewModel.swift; sourceTree = "<group>"; };
 		C26787C5277AAB8400BF243D /* ActorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorViewController.swift; sourceTree = "<group>"; };
+		C26787C8277BF2AB00BF243D /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
+		C26787CB277C3B7E00BF243D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRepresentable.swift; sourceTree = "<group>"; };
+		C26E91C1277C8FF600ED65E2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C26E91BD277C7E3300ED65E2 /* SkeletonView in Frameworks */,
 				C26787A027794C0F00BF243D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +141,8 @@
 		C267876B277947F700BF243D /* SeSACWeek14 */ = {
 			isa = PBXGroup;
 			children = (
+				C26E91BE277C835500ED65E2 /* Protocol */,
+				C26787C7277BF29A00BF243D /* Util */,
 				C26787B12779DC0100BF243D /* Resource */,
 				C26787B02779DBFB00BF243D /* Model */,
 				C26787AF2779DBF500BF243D /* Service */,
@@ -136,8 +150,6 @@
 				C26787AB2779DBB000BF243D /* Pages */,
 				C2678777277947FA00BF243D /* LaunchScreen.storyboard */,
 				C267877A277947FA00BF243D /* Info.plist */,
-				C26787A527795B2A00BF243D /* MainViewController.swift */,
-				C26787A927795FBB00BF243D /* Observable.swift */,
 			);
 			path = SeSACWeek14;
 			sourceTree = "<group>";
@@ -162,6 +174,7 @@
 		C26787AB2779DBB000BF243D /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				C26787CA277C3B6D00BF243D /* Board */,
 				C26787C4277AAB7800BF243D /* Actor */,
 				C26787B9277A913300BF243D /* Lotto */,
 				C26787AD2779DBE200BF243D /* SignUp */,
@@ -195,6 +208,7 @@
 				C26787A727795EEA00BF243D /* SignInViewModel.swift */,
 				C26787BE277A961600BF243D /* LottoViewModel.swift */,
 				C26787C2277AAA7B00BF243D /* ActorViewModel.swift */,
+				C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -213,6 +227,7 @@
 				C26787A32779573D00BF243D /* Model.swift */,
 				C26787BC277A94B700BF243D /* Lotto.swift */,
 				C26787C0277AA61500BF243D /* Actor.swift */,
+				C26E91C1277C8FF600ED65E2 /* Board.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -243,6 +258,32 @@
 			path = Actor;
 			sourceTree = "<group>";
 		};
+		C26787C7277BF29A00BF243D /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				C26787C8277BF2AB00BF243D /* EndPoint.swift */,
+				C26787A927795FBB00BF243D /* Observable.swift */,
+			);
+			path = Util;
+			sourceTree = "<group>";
+		};
+		C26787CA277C3B6D00BF243D /* Board */ = {
+			isa = PBXGroup;
+			children = (
+				C26787A527795B2A00BF243D /* MainViewController.swift */,
+				C26787CB277C3B7E00BF243D /* BoardView.swift */,
+			);
+			path = Board;
+			sourceTree = "<group>";
+		};
+		C26E91BE277C835500ED65E2 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -261,6 +302,7 @@
 			name = SeSACWeek14;
 			packageProductDependencies = (
 				C267879F27794C0F00BF243D /* SnapKit */,
+				C26E91BC277C7E3300ED65E2 /* SkeletonView */,
 			);
 			productName = SeSACWeek14;
 			productReference = C2678769277947F700BF243D /* SeSACWeek14.app */;
@@ -336,6 +378,7 @@
 			mainGroup = C2678760277947F700BF243D;
 			packageReferences = (
 				C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */,
+				C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = C267876A277947F700BF243D /* Products */;
 			projectDirPath = "";
@@ -383,6 +426,7 @@
 				C2678771277947F700BF243D /* SignInViewController.swift in Sources */,
 				C26787A22779504700BF243D /* APIService.swift in Sources */,
 				C267876D277947F700BF243D /* AppDelegate.swift in Sources */,
+				C26E91C2277C8FF600ED65E2 /* Board.swift in Sources */,
 				C26787BD277A94B700BF243D /* Lotto.swift in Sources */,
 				C26787BF277A961600BF243D /* LottoViewModel.swift in Sources */,
 				C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */,
@@ -390,11 +434,15 @@
 				C26787AA27795FBB00BF243D /* Observable.swift in Sources */,
 				C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */,
 				C26787A42779573D00BF243D /* Model.swift in Sources */,
+				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
 				C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */,
 				C26787C6277AAB8400BF243D /* ActorViewController.swift in Sources */,
+				C26E91C4277C95F400ED65E2 /* BoardViewModel.swift in Sources */,
 				C267879D27794BBF00BF243D /* SignInView.swift in Sources */,
 				C26787B82779FB5600BF243D /* SignUpViewModel.swift in Sources */,
 				C26787BB277A914200BF243D /* LottoViewController.swift in Sources */,
+				C26E91C0277C836400ED65E2 /* ViewRepresentable.swift in Sources */,
+				C26787CC277C3B7E00BF243D /* BoardView.swift in Sources */,
 				C267876F277947F700BF243D /* SceneDelegate.swift in Sources */,
 				C26787C1277AA61500BF243D /* Actor.swift in Sources */,
 			);
@@ -760,6 +808,14 @@
 				kind = branch;
 			};
 		};
+		C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -767,6 +823,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		C26E91BC277C7E3300ED65E2 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

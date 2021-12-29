@@ -20,16 +20,23 @@ class SignUpViewController: UIViewController {
     //MARK: Method
     @objc func signUpButtonClicked() {
         print("Sign UP")
-        view.isUserInteractionEnabled = false
+        mainView.showSkeletonView()
         viewModel.registerUser { [weak self] (userData, error) in
             guard let self = self else { return }
             guard error == nil else {
                 // 여기 알럿 띄워주고
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "오류", message: "회원가입에 실패했습니다.", preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    alert.addAction(ok)
+                    self.present(alert, animated: true, completion: nil)
+                    self.mainView.hideSkeletonView()
+                }
                 return
             }
             DispatchQueue.main.async {
-                self.logInViewModel.username.value = self.mainView.usernameTextField.text ?? ""
-                self.logInViewModel.password.value = self.mainView.passwordTextField.text ?? ""
+                self.logInViewModel.username.value = self.viewModel.username.value
+                self.logInViewModel.password.value = self.viewModel.password.value
                 self.logInViewModel.postUserLogin {
                     
                     DispatchQueue.main.async {
@@ -40,7 +47,6 @@ class SignUpViewController: UIViewController {
                         windowScene.windows.first?.makeKeyAndVisible()
                     }
                 }
-                self.view.isUserInteractionEnabled = true
             }
             
         }

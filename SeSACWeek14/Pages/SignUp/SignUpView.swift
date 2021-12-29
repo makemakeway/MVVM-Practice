@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SignUpView: UIView, ViewRepresentable {
     let emailTextField = UITextField()
@@ -13,6 +14,26 @@ class SignUpView: UIView, ViewRepresentable {
     var passwordTextField = UITextField()
     var signUpButton = UIButton()
     
+    func setSkeletonView() {
+        emailTextField.isSkeletonable = true
+        usernameTextField.isSkeletonable = true
+        passwordTextField.isSkeletonable = true
+        signUpButton.isSkeletonable = true
+    }
+    
+    func showSkeletonView() {
+        emailTextField.showGradientSkeleton()
+        usernameTextField.showGradientSkeleton()
+        passwordTextField.showGradientSkeleton()
+        signUpButton.showGradientSkeleton()
+    }
+    
+    func hideSkeletonView() {
+        emailTextField.hideSkeleton()
+        usernameTextField.hideSkeleton()
+        passwordTextField.hideSkeleton()
+        signUpButton.hideSkeleton()
+    }
     
     func setUpView() {
         addSubview(emailTextField)
@@ -70,6 +91,7 @@ class SignUpView: UIView, ViewRepresentable {
         super.init(frame: frame)
         setUpView()
         setUpConstraints()
+        setSkeletonView()
     }
     
     required init?(coder: NSCoder) {

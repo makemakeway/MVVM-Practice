@@ -20,6 +20,7 @@ class SignInViewController: UIViewController {
     //MARK: Method
     @objc func signInButtonClicked() {
         print("Clicked")
+        mainView.showSkeletonView()
         viewModel.postUserLogin {
             DispatchQueue.main.async {
                 guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {

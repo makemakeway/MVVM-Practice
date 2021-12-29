@@ -8,12 +8,6 @@
 import UIKit
 import SnapKit
 
-
-protocol ViewRepresentable {
-    func setUpView()
-    func setUpConstraints()
-}
-
 class SignInView: UIView, ViewRepresentable {
     
     let usernameTextField = UITextField()
@@ -25,10 +19,25 @@ class SignInView: UIView, ViewRepresentable {
         super.init(frame: frame)
         setUpView()
         setUpConstraints()
+        setSkeletonView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func setSkeletonView() {
+        usernameTextField.isSkeletonable = true
+        passwordTextField.isSkeletonable = true
+        signInButton.isSkeletonable = true
+        signUpButton.isSkeletonable = true
+    }
+    
+    func showSkeletonView() {
+        usernameTextField.showGradientSkeleton()
+        passwordTextField.showGradientSkeleton()
+        signInButton.showGradientSkeleton()
+        signUpButton.showGradientSkeleton()
     }
     
     func setUpView() {
