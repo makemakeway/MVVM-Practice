@@ -157,11 +157,11 @@ class APIService {
         .resume()
     }
     
-    static func fetchPost(token: String, completion: @escaping (BoardElement?, APIError?) -> Void) {
+    static func fetchPost(token: String, completion: @escaping (Board?, APIError?) -> Void) {
         let url = URL(string: "\(baseURL)/posts")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-        request.setValue(token, forHTTPHeaderField: "Authorization")
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         
         
         URLSession.request(endPoint: request, completion: completion)

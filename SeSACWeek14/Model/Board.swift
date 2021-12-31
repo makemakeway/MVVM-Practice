@@ -1,9 +1,7 @@
+// This file was generated from JSON Schema using quicktype, do not modify it directly.
+// To parse the JSON, add this file to your project and do:
 //
-//  Board.swift
-//  SeSACWeek14
-//
-//  Created by 박연배 on 2021/12/29.
-//
+//   let board = try? newJSONDecoder().decode(Board.self, from: jsonData)
 
 import Foundation
 
@@ -37,7 +35,6 @@ struct Comment: Codable {
     }
 }
 
-
 // MARK: - User
 struct User: Codable {
     let id: Int
@@ -53,3 +50,5 @@ struct User: Codable {
         case updatedAt = "updated_at"
     }
 }
+
+typealias Board = [BoardElement]
