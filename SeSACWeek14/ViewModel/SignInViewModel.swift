@@ -8,17 +8,18 @@
 import Foundation
 
 class SignInViewModel {
-    var username: Observable<String> = Observable("")
+    var email: Observable<String> = Observable("")
     var password: Observable<String> = Observable("")
     
     
     func postUserLogin(completion: @escaping () -> Void) {
-        APIService.login(identifier: username.value,
+        APIService.login(identifier: email.value,
                          password: password.value) { userData, error in
             guard let userData = userData else {
                 print("no data")
                 return
             }
+            print(userData.jwt)
             
             UserDefaults.standard.set(userData.jwt, forKey: "token")
             UserDefaults.standard.set(userData.user.username, forKey: "nickname")

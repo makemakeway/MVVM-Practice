@@ -12,11 +12,14 @@ enum APIError: Error {
     case noData
     case failed
     case invalidData
+    case tokenExpired
 }
 
 class APIService {
-    static func login(identifier: String, password: String, completion: @escaping (User?, APIError?) -> Void ) {
-        let url = URL(string: "http://test.monocoding.com/auth/local")!
+    static let baseURL = "http://test.monocoding.com:1231"
+    
+    static func login(identifier: String, password: String, completion: @escaping (UserAuth?, APIError?) -> Void ) {
+        let url = URL(string: "\(baseURL)/auth/local")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = "identifier=\(identifier)&password=\(password)".data(using: .utf8, allowLossyConversion: false)
@@ -25,8 +28,8 @@ class APIService {
     }
     
     
-    static func SignUp(username: String, email:String, password: String, completion: @escaping (User?, APIError?) -> Void) {
-        let url = URL(string: "http://test.monocoding.com/auth/local/register")!
+    static func SignUp(username: String, email:String, password: String, completion: @escaping (UserAuth?, APIError?) -> Void) {
+        let url = URL(string: "\(baseURL)/auth/local/register")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.httpBody = "username=\(username)&email=\(email)&password=\(password)".data(using: .utf8, allowLossyConversion: false)
@@ -52,7 +55,7 @@ class APIService {
             }
             do {
                 let decoder = JSONDecoder()
-                let userData = try decoder.decode(User.self, from: data)
+                let userData = try decoder.decode(UserAuth.self, from: data)
                 completion(userData, nil)
             } catch {
                 completion(nil, .invalidData)
@@ -154,11 +157,13 @@ class APIService {
         .resume()
     }
     
-    static func fetchBoards(completion: @escaping () -> Void) {
-        let url = URL(string: "http://test.monocoding.com/boards")!
+    static func fetchPost(token: String, completion: @escaping (BoardElement?, APIError?) -> Void) {
+        let url = URL(string: "\(baseURL)/posts")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
+        request.setValue(token, forHTTPHeaderField: "Authorization")
         
-        URLSession.request(endPoint: request, completion: <#T##(Decodable?, APIError?) -> Void#>)
+        
+        URLSession.request(endPoint: request, completion: completion)
     }
 }

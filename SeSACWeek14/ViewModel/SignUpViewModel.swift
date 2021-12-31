@@ -11,8 +11,9 @@ class SignUpViewModel {
     var email: Observable<String> = Observable("")
     var username: Observable<String> = Observable("")
     var password: Observable<String> = Observable("")
+    var confirmPassword: Observable<String> = Observable("")
     
-    func registerUser(completion: @escaping (User?, APIError?) -> Void) {
+    func registerUser(completion: @escaping (UserAuth?, APIError?) -> Void) {
         APIService.SignUp(username: username.value,
                           email: email.value,
                           password: password.value) { userData, error in

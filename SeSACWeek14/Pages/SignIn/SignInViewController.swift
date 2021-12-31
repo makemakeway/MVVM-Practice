@@ -37,8 +37,8 @@ class SignInViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func usernameTextFieldDidChange(_ textField: UITextField) {
-        viewModel.username.value = textField.text ?? ""
+    @objc func emailTextFieldDidChanged(_ textField: UITextField) {
+        viewModel.email.value = textField.text ?? ""
     }
     
     @objc func passwordTextFieldDidChange(_ textField: UITextField) {
@@ -58,15 +58,15 @@ class SignInViewController: UIViewController {
         
         mainView.signInButton.addTarget(self, action: #selector(signInButtonClicked), for: .touchUpInside)
         
-        viewModel.username.bind { text in
-            self.mainView.usernameTextField.text = text
+        viewModel.email.bind { text in
+            self.mainView.emailTextField.text = text
         }
         
         viewModel.password.bind { text in
             self.mainView.passwordTextField.text = text
         }
         
-        mainView.usernameTextField.addTarget(self, action: #selector(usernameTextFieldDidChange(_:)), for: .editingChanged)
+        mainView.emailTextField.addTarget(self, action: #selector(emailTextFieldDidChanged(_:)), for: .editingChanged)
         mainView.passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange(_:)), for: .editingChanged)
         mainView.signUpButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
     }

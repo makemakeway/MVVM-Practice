@@ -20,22 +20,22 @@ class SignUpViewController: UIViewController {
     //MARK: Method
     @objc func signUpButtonClicked() {
         print("Sign UP")
+        if viewModel.password.value != viewModel.confirmPassword.value {
+            makeAlert(title: "오류", message: "비밀번호를 확인해주세요.", buttonTitle: "확인")
+            return
+        }
+        
         mainView.showSkeletonView()
         viewModel.registerUser { [weak self] (userData, error) in
             guard let self = self else { return }
             guard error == nil else {
                 // 여기 알럿 띄워주고
-                DispatchQueue.main.async {
-                    let alert = UIAlertController(title: "오류", message: "회원가입에 실패했습니다.", preferredStyle: .alert)
-                    let ok = UIAlertAction(title: "확인", style: .default, handler: nil)
-                    alert.addAction(ok)
-                    self.present(alert, animated: true, completion: nil)
-                    self.mainView.hideSkeletonView()
-                }
+                self.makeAlert(title: "오류", message: "회원가입에 실패했습니다.", buttonTitle: "확인")
+                self.mainView.hideSkeletonView()
                 return
             }
             DispatchQueue.main.async {
-                self.logInViewModel.username.value = self.viewModel.username.value
+                self.logInViewModel.email.value = self.viewModel.username.value
                 self.logInViewModel.password.value = self.viewModel.password.value
                 self.logInViewModel.postUserLogin {
                     
@@ -64,6 +64,9 @@ class SignUpViewController: UIViewController {
         viewModel.password.value = mainView.passwordTextField.text ?? ""
     }
     
+    @objc func confirmPasswordTextFieldDidChanged(_ textField: UITextField) {
+        viewModel.confirmPassword.value = mainView.passwordTextField.text ?? ""
+    }
     
     //MARK: LifeCycle
     override func loadView() {

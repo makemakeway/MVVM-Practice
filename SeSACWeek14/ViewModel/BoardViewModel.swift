@@ -8,6 +8,12 @@
 import Foundation
 
 class BoardViewModel {
-    let welcomeText: String = ""
+    let boards = [BoardElement]()
     
+    
+    func fetchBoard() {
+        APIService.fetchPost { boardData, error in
+            
+        }
+    }
 }

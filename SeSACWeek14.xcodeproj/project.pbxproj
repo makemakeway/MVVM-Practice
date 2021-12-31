@@ -18,7 +18,7 @@
 		C267879D27794BBF00BF243D /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267879C27794BBF00BF243D /* SignInView.swift */; };
 		C26787A027794C0F00BF243D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = C267879F27794C0F00BF243D /* SnapKit */; };
 		C26787A22779504700BF243D /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A12779504700BF243D /* APIService.swift */; };
-		C26787A42779573D00BF243D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A32779573D00BF243D /* Model.swift */; };
+		C26787A42779573D00BF243D /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A32779573D00BF243D /* Auth.swift */; };
 		C26787A627795B2A00BF243D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A527795B2A00BF243D /* MainViewController.swift */; };
 		C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A727795EEA00BF243D /* SignInViewModel.swift */; };
 		C26787AA27795FBB00BF243D /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A927795FBB00BF243D /* Observable.swift */; };
@@ -37,6 +37,9 @@
 		C26E91C0277C836400ED65E2 /* ViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */; };
 		C26E91C2277C8FF600ED65E2 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91C1277C8FF600ED65E2 /* Board.swift */; };
 		C26E91C4277C95F400ED65E2 /* BoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */; };
+		C26E91CA277F122800ED65E2 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91C9277F122800ED65E2 /* UIViewController+Extension.swift */; };
+		C26E91CC277F15F600ED65E2 /* BoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */; };
+		C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CD277F166E00ED65E2 /* UITableViewCell+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +74,7 @@
 		C267878F277947FA00BF243D /* SeSACWeek14UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeSACWeek14UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		C267879C27794BBF00BF243D /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		C26787A12779504700BF243D /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
-		C26787A32779573D00BF243D /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		C26787A32779573D00BF243D /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		C26787A527795B2A00BF243D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C26787A727795EEA00BF243D /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
 		C26787A927795FBB00BF243D /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -89,6 +92,9 @@
 		C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRepresentable.swift; sourceTree = "<group>"; };
 		C26E91C1277C8FF600ED65E2 /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardViewModel.swift; sourceTree = "<group>"; };
+		C26E91C9277F122800ED65E2 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewCell.swift; sourceTree = "<group>"; };
+		C26E91CD277F166E00ED65E2 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +147,7 @@
 		C267876B277947F700BF243D /* SeSACWeek14 */ = {
 			isa = PBXGroup;
 			children = (
+				C26E91C8277F121800ED65E2 /* Extension */,
 				C26E91BE277C835500ED65E2 /* Protocol */,
 				C26787C7277BF29A00BF243D /* Util */,
 				C26787B12779DC0100BF243D /* Resource */,
@@ -224,7 +231,7 @@
 		C26787B02779DBFB00BF243D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C26787A32779573D00BF243D /* Model.swift */,
+				C26787A32779573D00BF243D /* Auth.swift */,
 				C26787BC277A94B700BF243D /* Lotto.swift */,
 				C26787C0277AA61500BF243D /* Actor.swift */,
 				C26E91C1277C8FF600ED65E2 /* Board.swift */,
@@ -272,6 +279,7 @@
 			children = (
 				C26787A527795B2A00BF243D /* MainViewController.swift */,
 				C26787CB277C3B7E00BF243D /* BoardView.swift */,
+				C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -282,6 +290,15 @@
 				C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C26E91C8277F121800ED65E2 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C26E91C9277F122800ED65E2 /* UIViewController+Extension.swift */,
+				C26E91CD277F166E00ED65E2 /* UITableViewCell+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -422,7 +439,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C26E91CC277F15F600ED65E2 /* BoardTableViewCell.swift in Sources */,
+				C26E91CA277F122800ED65E2 /* UIViewController+Extension.swift in Sources */,
 				C26787A627795B2A00BF243D /* MainViewController.swift in Sources */,
+				C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */,
 				C2678771277947F700BF243D /* SignInViewController.swift in Sources */,
 				C26787A22779504700BF243D /* APIService.swift in Sources */,
 				C267876D277947F700BF243D /* AppDelegate.swift in Sources */,
@@ -433,7 +453,7 @@
 				C26787B62779DD6300BF243D /* SignUpView.swift in Sources */,
 				C26787AA27795FBB00BF243D /* Observable.swift in Sources */,
 				C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */,
-				C26787A42779573D00BF243D /* Model.swift in Sources */,
+				C26787A42779573D00BF243D /* Auth.swift in Sources */,
 				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
 				C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */,
 				C26787C6277AAB8400BF243D /* ActorViewController.swift in Sources */,
