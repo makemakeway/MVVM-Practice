@@ -41,6 +41,7 @@
 		C26E91CC277F15F600ED65E2 /* BoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */; };
 		C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CD277F166E00ED65E2 /* UITableViewCell+Extension.swift */; };
 		C26E91D0277F341800ED65E2 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CF277F341800ED65E2 /* URLSession+Extension.swift */; };
+		C26E91D5277F67FF00ED65E2 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91D4277F67FF00ED65E2 /* LoadingIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTableViewCell.swift; sourceTree = "<group>"; };
 		C26E91CD277F166E00ED65E2 /* UITableViewCell+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extension.swift"; sourceTree = "<group>"; };
 		C26E91CF277F341800ED65E2 /* URLSession+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extension.swift"; sourceTree = "<group>"; };
+		C26E91D4277F67FF00ED65E2 /* LoadingIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		C267876B277947F700BF243D /* SeSACWeek14 */ = {
 			isa = PBXGroup;
 			children = (
+				C26E91D3277F489600ED65E2 /* UnUse */,
 				C26E91C8277F121800ED65E2 /* Extension */,
 				C26E91BE277C835500ED65E2 /* Protocol */,
 				C26787C7277BF29A00BF243D /* Util */,
@@ -184,8 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				C26787CA277C3B6D00BF243D /* Board */,
-				C26787C4277AAB7800BF243D /* Actor */,
-				C26787B9277A913300BF243D /* Lotto */,
 				C26787AD2779DBE200BF243D /* SignUp */,
 				C26787AC2779DBB900BF243D /* SignIn */,
 			);
@@ -215,8 +216,6 @@
 			children = (
 				C26787B72779FB5500BF243D /* SignUpViewModel.swift */,
 				C26787A727795EEA00BF243D /* SignInViewModel.swift */,
-				C26787BE277A961600BF243D /* LottoViewModel.swift */,
-				C26787C2277AAA7B00BF243D /* ActorViewModel.swift */,
 				C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */,
 			);
 			path = ViewModel;
@@ -234,8 +233,6 @@
 			isa = PBXGroup;
 			children = (
 				C26787A32779573D00BF243D /* Auth.swift */,
-				C26787BC277A94B700BF243D /* Lotto.swift */,
-				C26787C0277AA61500BF243D /* Actor.swift */,
 				C26E91C1277C8FF600ED65E2 /* Board.swift */,
 			);
 			path = Model;
@@ -254,6 +251,8 @@
 		C26787B9277A913300BF243D /* Lotto */ = {
 			isa = PBXGroup;
 			children = (
+				C26787BC277A94B700BF243D /* Lotto.swift */,
+				C26787BE277A961600BF243D /* LottoViewModel.swift */,
 				C26787BA277A914200BF243D /* LottoViewController.swift */,
 			);
 			path = Lotto;
@@ -262,6 +261,8 @@
 		C26787C4277AAB7800BF243D /* Actor */ = {
 			isa = PBXGroup;
 			children = (
+				C26787C0277AA61500BF243D /* Actor.swift */,
+				C26787C2277AAA7B00BF243D /* ActorViewModel.swift */,
 				C26787C5277AAB8400BF243D /* ActorViewController.swift */,
 			);
 			path = Actor;
@@ -272,6 +273,7 @@
 			children = (
 				C26787C8277BF2AB00BF243D /* EndPoint.swift */,
 				C26787A927795FBB00BF243D /* Observable.swift */,
+				C26E91D4277F67FF00ED65E2 /* LoadingIndicator.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -279,9 +281,8 @@
 		C26787CA277C3B6D00BF243D /* Board */ = {
 			isa = PBXGroup;
 			children = (
-				C26787A527795B2A00BF243D /* MainViewController.swift */,
-				C26787CB277C3B7E00BF243D /* BoardView.swift */,
-				C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */,
+				C26E91D2277F455D00ED65E2 /* PostDetail */,
+				C26E91D1277F453600ED65E2 /* Post */,
 			);
 			path = Board;
 			sourceTree = "<group>";
@@ -302,6 +303,32 @@
 				C26E91CF277F341800ED65E2 /* URLSession+Extension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		C26E91D1277F453600ED65E2 /* Post */ = {
+			isa = PBXGroup;
+			children = (
+				C26787A527795B2A00BF243D /* MainViewController.swift */,
+				C26787CB277C3B7E00BF243D /* BoardView.swift */,
+				C26E91CB277F15F600ED65E2 /* BoardTableViewCell.swift */,
+			);
+			path = Post;
+			sourceTree = "<group>";
+		};
+		C26E91D2277F455D00ED65E2 /* PostDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PostDetail;
+			sourceTree = "<group>";
+		};
+		C26E91D3277F489600ED65E2 /* UnUse */ = {
+			isa = PBXGroup;
+			children = (
+				C26787B9277A913300BF243D /* Lotto */,
+				C26787C4277AAB7800BF243D /* Actor */,
+			);
+			path = UnUse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +487,7 @@
 				C26787A42779573D00BF243D /* Auth.swift in Sources */,
 				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
 				C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */,
+				C26E91D5277F67FF00ED65E2 /* LoadingIndicator.swift in Sources */,
 				C26787C6277AAB8400BF243D /* ActorViewController.swift in Sources */,
 				C26E91C4277C95F400ED65E2 /* BoardViewModel.swift in Sources */,
 				C267879D27794BBF00BF243D /* SignInView.swift in Sources */,

@@ -31,7 +31,17 @@ class MainViewController: UIViewController {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.register(BoardTableViewCell.self, forCellReuseIdentifier: BoardTableViewCell.reuseIdentifier)
-        viewModel.fetchBoard()
+        viewModel.fetchBoard { [weak self] in
+            self?.makeAlert(title: "오류", message: "토큰이 만료되었습니다. 다시 로그인을 해주세요.", buttonTitle: "확인") { (_) in
+                DispatchQueue.main.async {
+                    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+                        return
+                    }
+                    windowScene.windows.first?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+                    windowScene.windows.first?.makeKeyAndVisible()
+                }
+            }
+        }
         viewModel.boards.bind({ [weak self](board) in
             self?.mainView.tableView.reloadData()
         })

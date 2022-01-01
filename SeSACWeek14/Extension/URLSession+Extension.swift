@@ -32,18 +32,22 @@ extension URLSession {
                     completion(nil, .invalidResponse)
                     return
                 }
-                guard response.statusCode == 200 else {
-                    print("STATUS CODE = \(response.statusCode)")
+                switch response.statusCode {
+                case 401:
+                    completion(nil, .tokenExpired)
+                    return
+                case 200:
+                    do {
+                        let decoder = JSONDecoder()
+                        let userData = try decoder.decode(T.self, from: data)
+                        completion(userData, nil)
+                        return
+                    } catch {
+                        completion(nil, .invalidData)
+                    }
+                default:
                     completion(nil, .failed)
                     return
-                }
-
-                do {
-                    let decoder = JSONDecoder()
-                    let userData = try decoder.decode(T.self, from: data)
-                    completion(userData, nil)
-                } catch {
-                    completion(nil, .invalidData)
                 }
             }
         }

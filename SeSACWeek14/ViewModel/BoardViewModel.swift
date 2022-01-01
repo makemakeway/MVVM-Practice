@@ -12,15 +12,22 @@ class BoardViewModel {
     
     let token = UserDefaults.standard.string(forKey: "token")
     
-    func fetchBoard() {
+    func fetchBoard(completion: @escaping () -> Void) {
         guard let token = token else {
             return
         }
 
+        LoadingIndicator.shared.showIndicator()
         
         APIService.fetchPost(token: token) { [weak self](board, error) in
+            LoadingIndicator.shared.hideIndicator()
             guard let self = self else { return }
-            guard error == nil else { return }
+            guard error == nil else {
+                if error == .tokenExpired {
+                    completion()
+                }
+                return
+            }
             guard let board = board else { return }
             self.boards.value = board
         }

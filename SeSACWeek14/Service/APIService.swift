@@ -34,34 +34,8 @@ class APIService {
         request.httpMethod = "POST"
         request.httpBody = "username=\(username)&email=\(email)&password=\(password)".data(using: .utf8, allowLossyConversion: false)
         
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                completion(nil, .failed)
-                return
-            }
-            
-            guard let data = data else {
-                completion(nil, .noData)
-                return
-            }
-            guard let response = response as? HTTPURLResponse else {
-                completion(nil, .invalidResponse)
-                return
-            }
-            guard response.statusCode == 200 else {
-                print("Status Code error", response.statusCode)
-                completion(nil, .failed)
-                return
-            }
-            do {
-                let decoder = JSONDecoder()
-                let userData = try decoder.decode(UserAuth.self, from: data)
-                completion(userData, nil)
-            } catch {
-                completion(nil, .invalidData)
-            }
-            
-        }.resume()
+        URLSession.request(endPoint: request, completion: completion)
+        
     }
     
     static func fetchLotto(number: Int, completion: @escaping (Lotto?, APIError?) -> Void ) {

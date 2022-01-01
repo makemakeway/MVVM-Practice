@@ -8,10 +8,10 @@
 import UIKit
 
 extension UIViewController {
-    func makeAlert(title: String, message: String, buttonTitle: String) {
+    func makeAlert(title: String, message: String, buttonTitle: String, completion: ((UIAlertAction) -> Void)?) {
         DispatchQueue.main.async {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let ok = UIAlertAction(title: buttonTitle, style: .default, handler: nil)
+            let ok = UIAlertAction(title: buttonTitle, style: .default, handler: completion)
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
         }

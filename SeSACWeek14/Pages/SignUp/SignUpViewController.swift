@@ -21,7 +21,7 @@ class SignUpViewController: UIViewController {
     @objc func signUpButtonClicked() {
         print("Sign UP")
         if viewModel.password.value != viewModel.confirmPassword.value {
-            makeAlert(title: "오류", message: "비밀번호를 확인해주세요.", buttonTitle: "확인")
+            makeAlert(title: "오류", message: "비밀번호를 확인해주세요.", buttonTitle: "확인", completion: nil)
             return
         }
         
@@ -30,7 +30,7 @@ class SignUpViewController: UIViewController {
             guard let self = self else { return }
             guard error == nil else {
                 // 여기 알럿 띄워주고
-                self.makeAlert(title: "오류", message: "회원가입에 실패했습니다.", buttonTitle: "확인")
+                self.makeAlert(title: "오류", message: "회원가입에 실패했습니다.", buttonTitle: "확인", completion: nil)
                 self.mainView.hideSkeletonView()
                 return
             }

@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            nvc = UINavigationController(rootViewController: vc!)
 //        }
         
-        vc = SignInViewController()
+        vc = MainViewController()
         nvc = UINavigationController(rootViewController: vc!)
         
         window?.rootViewController = nvc
