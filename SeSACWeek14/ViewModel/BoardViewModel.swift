@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class BoardViewModel {
     var boards: Observable<Board> = Observable(Board())
@@ -40,7 +41,13 @@ extension BoardViewModel {
         return boards.value.count
     }
     
-    func cellForRowAt(at indexPath: IndexPath) -> BoardElement {
-        return boards.value[indexPath.row]
+    func cellForRowAt(_ tableView: UITableView, at indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.reuseIdentifier, for: indexPath) as? BoardTableViewCell else {
+            print("변환 실패")
+            return UITableViewCell()
+        }
+        cell.selectionStyle = .none
+        cell.contentLabel.text = boards.value[indexPath.row].text
+        return cell
     }
 }

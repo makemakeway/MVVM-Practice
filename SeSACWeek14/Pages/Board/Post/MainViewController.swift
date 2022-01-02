@@ -18,7 +18,10 @@ class MainViewController: UIViewController {
     
     //MARK: Method
     
-    
+    @objc func addPostButtonClicked(_ sender: UIButton) {
+        let vc = EditPostViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     //MARK: LifeCycle
     override func loadView() {
@@ -31,15 +34,14 @@ class MainViewController: UIViewController {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         mainView.tableView.register(BoardTableViewCell.self, forCellReuseIdentifier: BoardTableViewCell.reuseIdentifier)
+        
+        mainView.addPostButton.addTarget(self, action: #selector(addPostButtonClicked(_:)), for: .touchUpInside)
+        
         viewModel.fetchBoard { [weak self] in
+            // 오류가 있을 경우에만 completion으로 넘어옴
             self?.makeAlert(title: "오류", message: "토큰이 만료되었습니다. 다시 로그인을 해주세요.", buttonTitle: "확인") { (_) in
-                DispatchQueue.main.async {
-                    guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-                        return
-                    }
-                    windowScene.windows.first?.rootViewController = UINavigationController(rootViewController: SignInViewController())
-                    windowScene.windows.first?.makeKeyAndVisible()
-                }
+                let vc = SignInViewController()
+                self?.changeRootView(viewController: vc)
             }
         }
         viewModel.boards.bind({ [weak self](board) in
@@ -50,15 +52,14 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.reuseIdentifier, for: indexPath) as? BoardTableViewCell else {
-            print("변환 실패")
-            return UITableViewCell()
-        }
-        cell.contentLabel.text = viewModel.cellForRowAt(at: indexPath).text
-        return cell
+        return viewModel.cellForRowAt(tableView, at: indexPath)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRows
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(indexPath.row)
     }
 }

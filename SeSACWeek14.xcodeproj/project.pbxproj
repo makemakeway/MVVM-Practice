@@ -10,6 +10,8 @@
 		C230C73027816B55008DBF47 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C72F27816B55008DBF47 /* ChangePasswordViewController.swift */; };
 		C230C73227816B75008DBF47 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C73127816B75008DBF47 /* ChangePasswordView.swift */; };
 		C230C73427817B23008DBF47 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */; };
+		C230C7372781FBA2008DBF47 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7362781FBA2008DBF47 /* EditPostViewController.swift */; };
+		C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7382781FBC9008DBF47 /* EditPostView.swift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -68,6 +70,8 @@
 		C230C72F27816B55008DBF47 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C230C73127816B75008DBF47 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
 		C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
+		C230C7362781FBA2008DBF47 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
+		C230C7382781FBC9008DBF47 /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
 		C2678769277947F700BF243D /* SeSACWeek14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek14.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C267876C277947F700BF243D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C267876E277947F700BF243D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -151,6 +155,15 @@
 				C230C73127816B75008DBF47 /* ChangePasswordView.swift */,
 			);
 			path = ChangePassword;
+			sourceTree = "<group>";
+		};
+		C230C7352781FB79008DBF47 /* EditPost */ = {
+			isa = PBXGroup;
+			children = (
+				C230C7362781FBA2008DBF47 /* EditPostViewController.swift */,
+				C230C7382781FBC9008DBF47 /* EditPostView.swift */,
+			);
+			path = EditPost;
 			sourceTree = "<group>";
 		};
 		C2678760277947F700BF243D = {
@@ -306,6 +319,7 @@
 		C26787CA277C3B6D00BF243D /* Board */ = {
 			isa = PBXGroup;
 			children = (
+				C230C7352781FB79008DBF47 /* EditPost */,
 				C26E91D2277F455D00ED65E2 /* PostDetail */,
 				C26E91D1277F453600ED65E2 /* Post */,
 			);
@@ -496,6 +510,7 @@
 			files = (
 				C26E91CC277F15F600ED65E2 /* BoardTableViewCell.swift in Sources */,
 				C26E91CA277F122800ED65E2 /* UIViewController+Extension.swift in Sources */,
+				C230C7372781FBA2008DBF47 /* EditPostViewController.swift in Sources */,
 				C26787A627795B2A00BF243D /* MainViewController.swift in Sources */,
 				C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */,
 				C2678771277947F700BF243D /* SignInViewController.swift in Sources */,
@@ -512,6 +527,7 @@
 				C26787B62779DD6300BF243D /* SignUpView.swift in Sources */,
 				C26787AA27795FBB00BF243D /* Observable.swift in Sources */,
 				C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */,
+				C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */,
 				C26787A42779573D00BF243D /* Auth.swift in Sources */,
 				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
 				C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */,

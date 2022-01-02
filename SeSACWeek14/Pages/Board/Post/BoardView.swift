@@ -11,6 +11,7 @@ import SnapKit
 class BoardView: UIView, ViewRepresentable {
     
     let tableView = UITableView()
+    let addPostButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,11 +26,21 @@ class BoardView: UIView, ViewRepresentable {
     
     func setUpView() {
         addSubview(tableView)
+        addSubview(addPostButton)
+        addPostButton.backgroundColor = .systemIndigo
+        addPostButton.tintColor = .white
+        addPostButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addPostButton.layer.cornerRadius = 22
     }
     
     func setUpConstraints() {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
+        }
+        addPostButton.snp.makeConstraints { make in
+            make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-20)
+            make.trailing.equalToSuperview().offset(-20)
+            make.width.height.equalTo(44)
         }
     }
     
