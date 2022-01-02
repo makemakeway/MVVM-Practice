@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C230C73027816B55008DBF47 /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C72F27816B55008DBF47 /* ChangePasswordViewController.swift */; };
+		C230C73227816B75008DBF47 /* ChangePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C73127816B75008DBF47 /* ChangePasswordView.swift */; };
+		C230C73427817B23008DBF47 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -62,6 +65,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C230C72F27816B55008DBF47 /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
+		C230C73127816B75008DBF47 /* ChangePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordView.swift; sourceTree = "<group>"; };
+		C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		C2678769277947F700BF243D /* SeSACWeek14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek14.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C267876C277947F700BF243D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C267876E277947F700BF243D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +134,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C230C72D27816484008DBF47 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				C230C72E27816B43008DBF47 /* ChangePassword */,
+				C26787AC2779DBB900BF243D /* SignIn */,
+				C26787AD2779DBE200BF243D /* SignUp */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		C230C72E27816B43008DBF47 /* ChangePassword */ = {
+			isa = PBXGroup;
+			children = (
+				C230C72F27816B55008DBF47 /* ChangePasswordViewController.swift */,
+				C230C73127816B75008DBF47 /* ChangePasswordView.swift */,
+			);
+			path = ChangePassword;
+			sourceTree = "<group>";
+		};
 		C2678760277947F700BF243D = {
 			isa = PBXGroup;
 			children = (
@@ -186,9 +211,8 @@
 		C26787AB2779DBB000BF243D /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				C230C72D27816484008DBF47 /* Auth */,
 				C26787CA277C3B6D00BF243D /* Board */,
-				C26787AD2779DBE200BF243D /* SignUp */,
-				C26787AC2779DBB900BF243D /* SignIn */,
 			);
 			path = Pages;
 			sourceTree = "<group>";
@@ -217,6 +241,7 @@
 				C26787B72779FB5500BF243D /* SignUpViewModel.swift */,
 				C26787A727795EEA00BF243D /* SignInViewModel.swift */,
 				C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */,
+				C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -476,11 +501,14 @@
 				C2678771277947F700BF243D /* SignInViewController.swift in Sources */,
 				C26E91D0277F341800ED65E2 /* URLSession+Extension.swift in Sources */,
 				C26787A22779504700BF243D /* APIService.swift in Sources */,
+				C230C73227816B75008DBF47 /* ChangePasswordView.swift in Sources */,
 				C267876D277947F700BF243D /* AppDelegate.swift in Sources */,
 				C26E91C2277C8FF600ED65E2 /* Board.swift in Sources */,
+				C230C73427817B23008DBF47 /* ChangePasswordViewModel.swift in Sources */,
 				C26787BD277A94B700BF243D /* Lotto.swift in Sources */,
 				C26787BF277A961600BF243D /* LottoViewModel.swift in Sources */,
 				C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */,
+				C230C73027816B55008DBF47 /* ChangePasswordViewController.swift in Sources */,
 				C26787B62779DD6300BF243D /* SignUpView.swift in Sources */,
 				C26787AA27795FBB00BF243D /* Observable.swift in Sources */,
 				C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */,

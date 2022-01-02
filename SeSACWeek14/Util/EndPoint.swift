@@ -12,6 +12,7 @@ enum EndPoint {
     case login
     case boards
     case boardDetail(id: Int)
+    case changePassword
 }
 
 
@@ -23,16 +24,18 @@ extension EndPoint {
         case .login:
             return .makeEndPoint("auth/local")
         case .boards:
-            return .makeEndPoint("boards")
+            return .makeEndPoint("posts")
         case .boardDetail(let id):
-            return .makeEndPoint("boards/\(id)")
+            return .makeEndPoint("posts/\(id)")
+        case .changePassword:
+            return .makeEndPoint("custom/change-password")
         }
     }
 }
 
 
 extension URL {
-    static let baseURL = "http://test.monocoding.com:1231"
+    static let baseURL = "http://test.monocoding.com:1231/"
     static func makeEndPoint(_ endPoint: String) -> URL {
         return URL(string: baseURL + endPoint)!
     }

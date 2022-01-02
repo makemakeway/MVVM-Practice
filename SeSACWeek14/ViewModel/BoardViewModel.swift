@@ -24,6 +24,7 @@ class BoardViewModel {
             guard let self = self else { return }
             guard error == nil else {
                 if error == .tokenExpired {
+                    UserDefaults.standard.set(nil, forKey: "token")
                     completion()
                 }
                 return

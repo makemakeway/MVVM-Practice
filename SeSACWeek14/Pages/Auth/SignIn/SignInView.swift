@@ -15,6 +15,7 @@ class SignInView: UIView, ViewRepresentable {
     let signInButton = UIButton()
     let signUpButton = UIButton()
     let logoImageView = UIImageView()
+    let changePassword = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

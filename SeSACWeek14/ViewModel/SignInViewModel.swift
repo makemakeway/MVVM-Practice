@@ -12,11 +12,12 @@ class SignInViewModel {
     var password: Observable<String> = Observable("")
     
     
-    func postUserLogin(completion: @escaping () -> Void) {
+    func postUserLogin(completion: @escaping (APIError?) -> Void) {
         APIService.login(identifier: email.value,
                          password: password.value) { userData, error in
             guard let userData = userData else {
                 print("no data")
+                completion(error)
                 return
             }
             print(userData.jwt)
@@ -26,7 +27,7 @@ class SignInViewModel {
             UserDefaults.standard.set(userData.user.id, forKey: "id")
             UserDefaults.standard.set(userData.user.email, forKey: "email")
             
-            completion()
+            completion(nil)
         }
     }
 }

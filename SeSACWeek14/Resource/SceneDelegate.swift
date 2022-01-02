@@ -24,16 +24,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         var nvc: UINavigationController?
     
         let token = UserDefaults.standard.string(forKey: "token")
-//        if token == nil {
-//            vc = MainViewController()
-//            nvc = UINavigationController(rootViewController: vc!)
-//        } else {
-//            vc = SignInViewController()
-//            nvc = UINavigationController(rootViewController: vc!)
-//        }
-        
-        vc = MainViewController()
-        nvc = UINavigationController(rootViewController: vc!)
+
+        if token == nil {
+            vc = SignInViewController()
+            nvc = UINavigationController(rootViewController: vc!)
+        } else {
+            vc = MainViewController()
+            nvc = UINavigationController(rootViewController: vc!)
+        }
         
         window?.rootViewController = nvc
         window?.makeKeyAndVisible()

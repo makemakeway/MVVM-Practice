@@ -34,18 +34,19 @@ class SignUpViewController: UIViewController {
                 self.mainView.hideSkeletonView()
                 return
             }
+            
+            // 회원가입 성공 후 로그인
             DispatchQueue.main.async {
                 self.logInViewModel.email.value = self.viewModel.username.value
                 self.logInViewModel.password.value = self.viewModel.password.value
-                self.logInViewModel.postUserLogin {
-                    
-                    DispatchQueue.main.async {
-                        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-                            return
-                        }
-                        windowScene.windows.first?.rootViewController = UINavigationController(rootViewController: MainViewController())
-                        windowScene.windows.first?.makeKeyAndVisible()
+                self.logInViewModel.postUserLogin { error in
+                    guard error == nil else {
+                        self.mainView.hideSkeletonView()
+                        return
                     }
+                    
+                    let vc = MainViewController()
+                    self.changeRootView(viewController: vc)
                 }
             }
             

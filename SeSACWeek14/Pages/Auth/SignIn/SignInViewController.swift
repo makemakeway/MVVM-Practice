@@ -21,14 +21,15 @@ class SignInViewController: UIViewController {
     @objc func signInButtonClicked() {
         print("Clicked")
         mainView.showSkeletonView()
-        viewModel.postUserLogin {
-            DispatchQueue.main.async {
-                guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-                    return
-                }
-                windowScene.windows.first?.rootViewController = UINavigationController(rootViewController: MainViewController())
-                windowScene.windows.first?.makeKeyAndVisible()
+        viewModel.postUserLogin { [weak self](error) in
+            
+            guard error == nil else {
+                self?.mainView.hideSkeleton()
+                return
             }
+            
+            let vc = MainViewController()
+            self?.changeRootView(viewController: vc)
         }
     }
     
