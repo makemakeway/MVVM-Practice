@@ -6,11 +6,15 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ChangePasswordViewController: UIViewController {
     //MARK: Properties
     
     let viewModel = ChangePasswordViewModel()
+    
+    let disposeBag = DisposeBag()
     
     //MARK: UI
     
@@ -44,26 +48,20 @@ class ChangePasswordViewController: UIViewController {
         }
     }
     
-    @objc func currentPasswordTextFieldDidChanged(_ sender: UITextField) {
-        viewModel.oldPassword.value = sender.text ?? ""
-    }
-    
-    @objc func newPasswordTextFieldDidChanged(_ sender: UITextField) {
-        viewModel.newPassword.value = sender.text ?? ""
-    }
-    
-    @objc func confirmNewPasswordTextFieldDidChanged(_ sender: UITextField) {
-        viewModel.newPasswordConfirm.value = sender.text ?? ""
-    }
-    
-    func bindWithView() {
+    func bind() {
+        mainView.newPasswordTextField.rx.text.orEmpty
+            .bind(to: viewModel.newPassword)
+            .disposed(by: disposeBag)
+        
+        mainView.currentPasswordTextField.rx.text.orEmpty
+            .bind(to: viewModel.oldPassword)
+            .disposed(by: disposeBag)
+        
+        mainView.confirmNewPasswordTextField.rx.text.orEmpty
+            .bind(to: viewModel.newPasswordConfirm)
+            .disposed(by: disposeBag)
+        
         mainView.confirmButton.addTarget(self, action: #selector(changeButtonClicked(_:)), for: .touchUpInside)
-        
-        mainView.currentPasswordTextField.addTarget(self, action: #selector(currentPasswordTextFieldDidChanged(_:)), for: .editingChanged)
-        
-        mainView.newPasswordTextField.addTarget(self, action: #selector(newPasswordTextFieldDidChanged(_:)), for: .editingChanged)
-        
-        mainView.confirmNewPasswordTextField.addTarget(self, action: #selector(confirmNewPasswordTextFieldDidChanged(_:)), for: .editingChanged)
     }
     
     //MARK: LifeCycle
@@ -75,6 +73,6 @@ class ChangePasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        bindWithView()
+        bind()
     }
 }

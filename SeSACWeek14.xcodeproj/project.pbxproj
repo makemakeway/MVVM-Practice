@@ -12,6 +12,9 @@
 		C230C73427817B23008DBF47 /* ChangePasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */; };
 		C230C7372781FBA2008DBF47 /* EditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7362781FBA2008DBF47 /* EditPostViewController.swift */; };
 		C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7382781FBC9008DBF47 /* EditPostView.swift */; };
+		C230C7892782BA06008DBF47 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C230C7882782BA06008DBF47 /* RxCocoa */; };
+		C230C78B2782BA06008DBF47 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C230C78A2782BA06008DBF47 /* RxRelay */; };
+		C230C78D2782BA06008DBF47 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C230C78C2782BA06008DBF47 /* RxSwift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -30,12 +33,6 @@
 		C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787B32779DD4500BF243D /* SignUpViewController.swift */; };
 		C26787B62779DD6300BF243D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787B52779DD6300BF243D /* SignUpView.swift */; };
 		C26787B82779FB5600BF243D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787B72779FB5500BF243D /* SignUpViewModel.swift */; };
-		C26787BB277A914200BF243D /* LottoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787BA277A914200BF243D /* LottoViewController.swift */; };
-		C26787BD277A94B700BF243D /* Lotto.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787BC277A94B700BF243D /* Lotto.swift */; };
-		C26787BF277A961600BF243D /* LottoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787BE277A961600BF243D /* LottoViewModel.swift */; };
-		C26787C1277AA61500BF243D /* Actor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C0277AA61500BF243D /* Actor.swift */; };
-		C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C2277AAA7B00BF243D /* ActorViewModel.swift */; };
-		C26787C6277AAB8400BF243D /* ActorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C5277AAB8400BF243D /* ActorViewController.swift */; };
 		C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787C8277BF2AB00BF243D /* EndPoint.swift */; };
 		C26787CC277C3B7E00BF243D /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787CB277C3B7E00BF243D /* BoardView.swift */; };
 		C26E91BD277C7E3300ED65E2 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = C26E91BC277C7E3300ED65E2 /* SkeletonView */; };
@@ -93,12 +90,6 @@
 		C26787B32779DD4500BF243D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C26787B52779DD6300BF243D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C26787B72779FB5500BF243D /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
-		C26787BA277A914200BF243D /* LottoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoViewController.swift; sourceTree = "<group>"; };
-		C26787BC277A94B700BF243D /* Lotto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lotto.swift; sourceTree = "<group>"; };
-		C26787BE277A961600BF243D /* LottoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottoViewModel.swift; sourceTree = "<group>"; };
-		C26787C0277AA61500BF243D /* Actor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actor.swift; sourceTree = "<group>"; };
-		C26787C2277AAA7B00BF243D /* ActorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorViewModel.swift; sourceTree = "<group>"; };
-		C26787C5277AAB8400BF243D /* ActorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActorViewController.swift; sourceTree = "<group>"; };
 		C26787C8277BF2AB00BF243D /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		C26787CB277C3B7E00BF243D /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRepresentable.swift; sourceTree = "<group>"; };
@@ -116,7 +107,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C230C7892782BA06008DBF47 /* RxCocoa in Frameworks */,
 				C26E91BD277C7E3300ED65E2 /* SkeletonView in Frameworks */,
+				C230C78D2782BA06008DBF47 /* RxSwift in Frameworks */,
+				C230C78B2782BA06008DBF47 /* RxRelay in Frameworks */,
 				C26787A027794C0F00BF243D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -189,7 +183,6 @@
 		C267876B277947F700BF243D /* SeSACWeek14 */ = {
 			isa = PBXGroup;
 			children = (
-				C26E91D3277F489600ED65E2 /* UnUse */,
 				C26E91C8277F121800ED65E2 /* Extension */,
 				C26E91BE277C835500ED65E2 /* Protocol */,
 				C26787C7277BF29A00BF243D /* Util */,
@@ -286,26 +279,6 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		C26787B9277A913300BF243D /* Lotto */ = {
-			isa = PBXGroup;
-			children = (
-				C26787BC277A94B700BF243D /* Lotto.swift */,
-				C26787BE277A961600BF243D /* LottoViewModel.swift */,
-				C26787BA277A914200BF243D /* LottoViewController.swift */,
-			);
-			path = Lotto;
-			sourceTree = "<group>";
-		};
-		C26787C4277AAB7800BF243D /* Actor */ = {
-			isa = PBXGroup;
-			children = (
-				C26787C0277AA61500BF243D /* Actor.swift */,
-				C26787C2277AAA7B00BF243D /* ActorViewModel.swift */,
-				C26787C5277AAB8400BF243D /* ActorViewController.swift */,
-			);
-			path = Actor;
-			sourceTree = "<group>";
-		};
 		C26787C7277BF29A00BF243D /* Util */ = {
 			isa = PBXGroup;
 			children = (
@@ -361,15 +334,6 @@
 			path = PostDetail;
 			sourceTree = "<group>";
 		};
-		C26E91D3277F489600ED65E2 /* UnUse */ = {
-			isa = PBXGroup;
-			children = (
-				C26787B9277A913300BF243D /* Lotto */,
-				C26787C4277AAB7800BF243D /* Actor */,
-			);
-			path = UnUse;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -389,6 +353,9 @@
 			packageProductDependencies = (
 				C267879F27794C0F00BF243D /* SnapKit */,
 				C26E91BC277C7E3300ED65E2 /* SkeletonView */,
+				C230C7882782BA06008DBF47 /* RxCocoa */,
+				C230C78A2782BA06008DBF47 /* RxRelay */,
+				C230C78C2782BA06008DBF47 /* RxSwift */,
 			);
 			productName = SeSACWeek14;
 			productReference = C2678769277947F700BF243D /* SeSACWeek14.app */;
@@ -465,6 +432,7 @@
 			packageReferences = (
 				C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = C267876A277947F700BF243D /* Products */;
 			projectDirPath = "";
@@ -520,8 +488,6 @@
 				C267876D277947F700BF243D /* AppDelegate.swift in Sources */,
 				C26E91C2277C8FF600ED65E2 /* Board.swift in Sources */,
 				C230C73427817B23008DBF47 /* ChangePasswordViewModel.swift in Sources */,
-				C26787BD277A94B700BF243D /* Lotto.swift in Sources */,
-				C26787BF277A961600BF243D /* LottoViewModel.swift in Sources */,
 				C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */,
 				C230C73027816B55008DBF47 /* ChangePasswordViewController.swift in Sources */,
 				C26787B62779DD6300BF243D /* SignUpView.swift in Sources */,
@@ -530,17 +496,13 @@
 				C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */,
 				C26787A42779573D00BF243D /* Auth.swift in Sources */,
 				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
-				C26787C3277AAA7B00BF243D /* ActorViewModel.swift in Sources */,
 				C26E91D5277F67FF00ED65E2 /* LoadingIndicator.swift in Sources */,
-				C26787C6277AAB8400BF243D /* ActorViewController.swift in Sources */,
 				C26E91C4277C95F400ED65E2 /* BoardViewModel.swift in Sources */,
 				C267879D27794BBF00BF243D /* SignInView.swift in Sources */,
 				C26787B82779FB5600BF243D /* SignUpViewModel.swift in Sources */,
-				C26787BB277A914200BF243D /* LottoViewController.swift in Sources */,
 				C26E91C0277C836400ED65E2 /* ViewRepresentable.swift in Sources */,
 				C26787CC277C3B7E00BF243D /* BoardView.swift in Sources */,
 				C267876F277947F700BF243D /* SceneDelegate.swift in Sources */,
-				C26787C1277AA61500BF243D /* Actor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -896,6 +858,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -915,6 +885,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		C230C7882782BA06008DBF47 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		C230C78A2782BA06008DBF47 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		C230C78C2782BA06008DBF47 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		C267879F27794C0F00BF243D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */;

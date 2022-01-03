@@ -5,11 +5,11 @@
 //  Created by 박연배 on 2021/12/29.
 //
 
-import Foundation
 import UIKit
+import RxSwift
 
 class BoardViewModel {
-    var boards: Observable<Board> = Observable(Board())
+    var boards: Observable<Board>?
     
     let token = UserDefaults.standard.string(forKey: "token")
     

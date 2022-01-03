@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 class SignInViewModel {
-    var email: Observable<String> = Observable("")
-    var password: Observable<String> = Observable("")
+    var email = BehaviorRelay(value: "")
+    var password = BehaviorRelay(value: "")
     
     
     func postUserLogin(completion: @escaping (APIError?) -> Void) {

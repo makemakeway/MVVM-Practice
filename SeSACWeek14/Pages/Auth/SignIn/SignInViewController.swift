@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class SignInViewController: UIViewController {
 
     //MARK: Properties
     var viewModel = SignInViewModel()
-    
+    let disposeBag = DisposeBag()
     
     //MARK: UI
     let mainView = SignInView()
@@ -38,14 +40,17 @@ class SignInViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    @objc func emailTextFieldDidChanged(_ textField: UITextField) {
-        viewModel.email.value = textField.text ?? ""
-    }
     
-    @objc func passwordTextFieldDidChange(_ textField: UITextField) {
-        viewModel.password.value = textField.text ?? ""
+    func bind() {
+        mainView.emailTextField.rx.text.orEmpty
+            .bind(to: viewModel.email)
+            .disposed(by: disposeBag)
+        
+        mainView.passwordTextField.rx.text.orEmpty
+            .bind(to: viewModel.password)
+            .disposed(by: disposeBag)
+        
     }
-    
     
     //MARK: LifeCycle
     override func loadView() {
@@ -56,22 +61,10 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         
         mainView.signInButton.addTarget(self, action: #selector(signInButtonClicked), for: .touchUpInside)
-        
-        viewModel.email.bind { text in
-            self.mainView.emailTextField.text = text
-        }
-        
-        viewModel.password.bind { text in
-            self.mainView.passwordTextField.text = text
-        }
-        
-        mainView.emailTextField.addTarget(self, action: #selector(emailTextFieldDidChanged(_:)), for: .editingChanged)
-        mainView.passwordTextField.addTarget(self, action: #selector(passwordTextFieldDidChange(_:)), for: .editingChanged)
         mainView.signUpButton.addTarget(self, action: #selector(signUpButtonClicked), for: .touchUpInside)
     }
-
-
 }
 

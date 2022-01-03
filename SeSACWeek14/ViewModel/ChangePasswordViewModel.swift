@@ -6,11 +6,12 @@
 //
 
 import Foundation
+import RxRelay
 
 class ChangePasswordViewModel {
-    var oldPassword: Observable<String> = Observable("")
-    var newPassword: Observable<String> = Observable("")
-    var newPasswordConfirm: Observable<String> = Observable("")
+    var oldPassword = BehaviorRelay(value: "")
+    var newPassword = BehaviorRelay(value: "")
+    var newPasswordConfirm = BehaviorRelay(value: "")
     
     func changePassword(completion: @escaping ((APIError?) -> Void)) {
         APIService.changePassword(currentPassword: oldPassword.value,
