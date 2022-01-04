@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class MainViewController: UIViewController {
     
     //MARK: Properties
     let viewModel = BoardViewModel()
     
+    let disposeBag = DisposeBag()
     
     //MARK: UI
     let mainView = BoardView()
@@ -23,6 +26,29 @@ class MainViewController: UIViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    func bind() {
+        viewModel.boards
+            .bind(to: mainView.tableView.rx.items) { (tableView, row, element) in
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.reuseIdentifier) as? BoardTableViewCell else { return UITableViewCell() }
+                
+                cell.usernameLabel.text = element.user.username
+                cell.contentLabel.text = element.text
+                
+                return cell
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.errorObservable
+            .subscribe { [weak self](error) in
+                self?.makeAlert(title: "오류", message: "토큰이 만료되었습니다. 다시 로그인 해주세요", buttonTitle: "확인", completion: { _ in
+                    self?.changeRootView(viewController: SignInViewController())
+                })
+            }
+            .disposed(by: disposeBag)
+        
+        mainView.addPostButton.addTarget(self, action: #selector(addPostButtonClicked(_:)), for: .touchUpInside)
+    }
+    
     //MARK: LifeCycle
     override func loadView() {
         super.loadView()
@@ -31,35 +57,12 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
         mainView.tableView.register(BoardTableViewCell.self, forCellReuseIdentifier: BoardTableViewCell.reuseIdentifier)
         
-        mainView.addPostButton.addTarget(self, action: #selector(addPostButtonClicked(_:)), for: .touchUpInside)
+        bind()
         
-        viewModel.fetchBoard { [weak self] in
-            // 오류가 있을 경우에만 completion으로 넘어옴
-            self?.makeAlert(title: "오류", message: "토큰이 만료되었습니다. 다시 로그인을 해주세요.", buttonTitle: "확인") { (_) in
-                let vc = SignInViewController()
-                self?.changeRootView(viewController: vc)
-            }
-        }
-        viewModel.boards.bind({ [weak self](board) in
-            self?.mainView.tableView.reloadData()
-        })
-    }
-}
-
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return viewModel.cellForRowAt(tableView, at: indexPath)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        viewModel.fetchBoard()
+        
+        print(UserDefaults.standard.string(forKey: "token"))
     }
 }

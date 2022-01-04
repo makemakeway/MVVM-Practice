@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxSwift
 
 enum APIError: Error {
     case invalidResponse
@@ -72,6 +73,15 @@ class APIService {
         request.httpMethod = "GET"
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         
+        URLSession.request(endPoint: request, completion: completion)
+    }
+    
+    static func addPost(token: String, text: String, completion: @escaping (APIError?) -> Void) {
+        let url = EndPoint.boards.url
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.httpBody = "text=\(text)".data(using: .utf8, allowLossyConversion: false)
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
         
         URLSession.request(endPoint: request, completion: completion)
     }

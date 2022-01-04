@@ -15,6 +15,7 @@
 		C230C7892782BA06008DBF47 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = C230C7882782BA06008DBF47 /* RxCocoa */; };
 		C230C78B2782BA06008DBF47 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C230C78A2782BA06008DBF47 /* RxRelay */; };
 		C230C78D2782BA06008DBF47 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C230C78C2782BA06008DBF47 /* RxSwift */; };
+		C230C7D927843FBD008DBF47 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7D827843FBD008DBF47 /* EditViewModel.swift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -69,6 +70,7 @@
 		C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		C230C7362781FBA2008DBF47 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		C230C7382781FBC9008DBF47 /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
+		C230C7D827843FBD008DBF47 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
 		C2678769277947F700BF243D /* SeSACWeek14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek14.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C267876C277947F700BF243D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C267876E277947F700BF243D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				C26787A727795EEA00BF243D /* SignInViewModel.swift */,
 				C26E91C3277C95F400ED65E2 /* BoardViewModel.swift */,
 				C230C73327817B23008DBF47 /* ChangePasswordViewModel.swift */,
+				C230C7D827843FBD008DBF47 /* EditViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -476,6 +479,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C230C7D927843FBD008DBF47 /* EditViewModel.swift in Sources */,
 				C26E91CC277F15F600ED65E2 /* BoardTableViewCell.swift in Sources */,
 				C26E91CA277F122800ED65E2 /* UIViewController+Extension.swift in Sources */,
 				C230C7372781FBA2008DBF47 /* EditPostViewController.swift in Sources */,

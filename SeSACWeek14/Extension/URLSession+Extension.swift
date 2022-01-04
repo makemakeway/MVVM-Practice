@@ -52,4 +52,29 @@ extension URLSession {
             }
         }
     }
+    
+    static func request(_ session: URLSession = .shared, endPoint: URLRequest, completion: @escaping (APIError?) -> Void) {
+        session.dataTask(endPoint) { data, response, error in
+            DispatchQueue.main.async {
+                guard error == nil else {
+                    completion(.failed)
+                    return
+                }
+                guard let response = response as? HTTPURLResponse else {
+                    completion(.invalidResponse)
+                    return
+                }
+                switch response.statusCode {
+                case 401:
+                    completion(.tokenExpired)
+                    return
+                case 200:
+                    completion(nil)
+                default:
+                    completion(.failed)
+                    return
+                }
+            }
+        }
+    }
 }
