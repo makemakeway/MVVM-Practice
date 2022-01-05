@@ -10,10 +10,12 @@ import SnapKit
 
 class PostDetailView: UIView, ViewRepresentable {
     let tableView = UITableView()
+    let headerView = PostDetailHeaderView()
     
     func setUpView() {
         addSubview(tableView)
         tableView.register(PostDetailHeaderView.self, forHeaderFooterViewReuseIdentifier: PostDetailHeaderView.reuseIdentifier)
+        tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.reuseIdentifier)
     }
     
     func setUpConstraints() {

@@ -16,7 +16,7 @@ class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepre
     let contentLabel = UILabel()
     let commentView = UIView()
     let commentImage = UIImageView()
-    let commentLabel = UILabel()
+    var commentLabel = UILabel()
     
     func setUpView() {
         self.contentView.addSubview(profileImageView)
@@ -24,26 +24,31 @@ class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepre
         self.contentView.addSubview(profileDateLabel)
         self.contentView.addSubview(contentLabel)
         self.contentView.addSubview(commentView)
-        self.contentView.addSubview(commentImage)
-        self.contentView.addSubview(commentLabel)
+        commentView.addSubview(commentImage)
+        commentView.addSubview(commentLabel)
         
         profileImageView.backgroundColor = .systemTeal
         profileImageView.image = UIImage(systemName: "person.fill")
         profileImageView.tintColor = .systemGray
         
-        profileNameLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        profileNameLabel.font = UIFont().mainFontBold
         
-        profileDateLabel.font = UIFont.systemFont(ofSize: 14)
+        profileDateLabel.font = UIFont().smallFontRegular
         profileDateLabel.textColor = .darkGray
         
-        contentLabel.font = UIFont.systemFont(ofSize: 16)
+        contentLabel.font = UIFont().contentFontRegular
         contentLabel.numberOfLines = 0
         
         commentImage.image = UIImage(systemName: "bubble.left")
         commentImage.tintColor = .darkGray
         
         commentLabel.text = "댓글쓰기"
-        commentLabel.font = UIFont.systemFont(ofSize: 15)
+        commentLabel.font = UIFont().mainFontRegular
+        
+        profileNameLabel.text = "zzzzz"
+        profileDateLabel.text = "12/01"
+        contentLabel.text = "zzfsdl,fds;fdsl;f,sl;df,dsl;f,sdf;lsd,fl"
+        
     }
     
     func setUpConstraints() {
@@ -60,6 +65,31 @@ class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepre
         profileDateLabel.snp.makeConstraints { make in
             make.leading.equalTo(profileNameLabel)
             make.top.equalTo(profileNameLabel.snp.bottom).offset(5)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.top.equalTo(profileDateLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview().offset(-20)
+        }
+        
+        commentView.snp.makeConstraints { make in
+            make.top.equalTo(contentLabel.snp.bottom).offset(20)
+            make.leading.equalToSuperview().offset(20)
+            make.bottom.trailing.equalToSuperview().offset(-20)
+            make.height.equalTo(40)
+        }
+        
+        commentImage.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.size.equalTo(20)
+            make.centerY.equalToSuperview()
+        }
+        
+        commentLabel.snp.makeConstraints { make in
+            make.leading.equalTo(commentImage.snp.trailing).offset(5)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
         }
         
     }

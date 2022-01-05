@@ -34,18 +34,18 @@ class BoardTableViewCell: UITableViewCell {
         commentView.addSubview(commentLabel)
         
         usernameLabel.textColor = .darkGray
-        usernameLabel.font = UIFont.systemFont(ofSize: 15)
+        usernameLabel.font = UIFont().mainFontRegular
         
         contentLabel.numberOfLines = 3
         
         dateLabel.textColor = .darkGray
-        dateLabel.font = UIFont.systemFont(ofSize: 14)
+        dateLabel.font = UIFont().smallFontRegular
         
         commentImage.image = UIImage(systemName: "bubble.left")
         commentImage.tintColor = .darkGray
         
         commentLabel.text = "댓글쓰기"
-        commentLabel.font = UIFont.systemFont(ofSize: 15)
+        commentLabel.font = UIFont().mainFontRegular
     }
     
     func setConstraints() {

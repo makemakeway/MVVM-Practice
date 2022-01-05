@@ -13,6 +13,7 @@ enum EndPoint {
     case boards
     case boardDetail(id: Int)
     case changePassword
+    case fetchComment
 }
 
 
@@ -29,6 +30,8 @@ extension EndPoint {
             return .makeEndPoint("posts/\(id)")
         case .changePassword:
             return .makeEndPoint("custom/change-password")
+        case .fetchComment:
+            return .makeEndPoint("comments")
         }
     }
 }
