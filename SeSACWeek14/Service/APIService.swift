@@ -86,7 +86,7 @@ class APIService {
         URLSession.request(endPoint: request, completion: completion)
     }
     
-    static func fetchComment(token: String, postId: Int, completion: @escaping (APIError?) -> Void) {
+    static func fetchComment(token: String, postId: Int, completion: @escaping (CommentDetailElement?, APIError?) -> Void) {
         let urlString = "http://test.monocoding.com:1231/comments"
         var component = URLComponents(string: urlString)
         let query = URLQueryItem(name: "post", value: "\(postId)")

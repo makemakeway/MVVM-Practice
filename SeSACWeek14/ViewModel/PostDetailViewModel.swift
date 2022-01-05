@@ -12,20 +12,34 @@ import RxRelay
 class PostDetailViewModel {
     
     var boardElement: BehaviorRelay<BoardElement>
-    var commentsObservable: BehaviorRelay<[Comment]>
+    var commentsObservable: PublishSubject<CommentDetailElement> = PublishSubject()
     var commentText = BehaviorRelay(value: "")
     
     let token = UserDefaults.standard.string(forKey: "token")
     
-    func postComment() {
+    func fetchComment(postId: Int) {
         guard let token = token else {
             return
         }
-        print("Upload Comment")
+        APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            guard let comments = element else {
+                return
+            }
+            self?.commentsObservable
+                .onNext(comments)
+        }
+    }
+    
+    func postComment() {
+        
     }
     
     init(element: BoardElement) {
         self.boardElement = BehaviorRelay(value: element)
-        self.commentsObservable = BehaviorRelay(value: element.comments)
+        fetchComment(postId: element.id)
     }
 }

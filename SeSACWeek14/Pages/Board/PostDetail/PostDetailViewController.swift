@@ -22,19 +22,23 @@ class PostDetailViewController: UIViewController {
     
     //MARK: Method
     func bind() {
-        
         viewModel.boardElement
             .bind { [weak self](element) in
-                let headerView = self?.mainView.tableView.headerView(forSection: 0) as! PostDetailHeaderView
+                self?.mainView.headerView.contentLabel.text = element.text
+                self?.mainView.headerView.commentLabel.text = "댓글 \(element.comments.count)"
+                self?.mainView.headerView.profileNameLabel.text = element.user.username
                 
-                headerView.commentLabel.text = "댓글 \(element.comments)"
-                headerView.contentLabel.text = element.text
+                let date = DateManager.shared.stringToDate(string: element.updatedAt)
+                let dateString = DateManager.shared.dateToString(date: date)
+                
+                self?.mainView.headerView.profileDateLabel.text = dateString
+                
             }
             .disposed(by: disposeBag)
         
         viewModel.commentsObservable
             .bind(to: mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.reuseIdentifier, cellType: CommentTableViewCell.self)) { (row, element, cell) in
-                cell.usernameLabel.text = "\(element.user)"
+                cell.usernameLabel.text = "\(element.user.username)"
                 cell.commentContentLabel.text = element.comment
             }
             .disposed(by: disposeBag)
@@ -53,8 +57,24 @@ class PostDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainView.tableView.delegate = self
         bind()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        if let headerView = mainView.tableView.tableHeaderView {
+
+            let height = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
+            var headerFrame = headerView.frame
+
+            //Comparison necessary to avoid infinite loop
+            if height != headerFrame.size.height {
+                headerFrame.size.height = height
+                headerView.frame = headerFrame
+                mainView.tableView.tableHeaderView = headerView
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -65,12 +85,5 @@ class PostDetailViewController: UIViewController {
                                                               updatedAt: "",
                                                               comments: []))
         super.init(coder: coder)
-    }
-}
-
-extension PostDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: PostDetailHeaderView.reuseIdentifier)!
-        return header
     }
 }

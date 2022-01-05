@@ -11,16 +11,26 @@ import SnapKit
 class PostDetailView: UIView, ViewRepresentable {
     let tableView = UITableView()
     let headerView = PostDetailHeaderView()
+    let footerView = PostDetailFooterView()
     
     func setUpView() {
         addSubview(tableView)
-        tableView.register(PostDetailHeaderView.self, forHeaderFooterViewReuseIdentifier: PostDetailHeaderView.reuseIdentifier)
         tableView.register(CommentTableViewCell.self, forCellReuseIdentifier: CommentTableViewCell.reuseIdentifier)
+        tableView.tableHeaderView = headerView
+        addSubview(footerView)
+        self.backgroundColor = .systemBackground
     }
     
     func setUpConstraints() {
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide)
+        }
+        
+        footerView.snp.makeConstraints { make in
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.height.equalTo(60)
+            make.leading.trailing.equalToSuperview()
         }
     }
     

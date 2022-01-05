@@ -25,11 +25,13 @@ class CommentTableViewCell: UITableViewCell, ViewRepresentable {
         commentContentLabel.numberOfLines = 0
         
         commentInfoButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        commentInfoButton.transform = commentInfoButton.transform.rotated(by: .pi / 2)
+        commentInfoButton.tintColor = .darkGray
     }
     
     func setUpConstraints() {
         usernameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(18)
+            make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-30)
             make.top.equalToSuperview().offset(10)
         }

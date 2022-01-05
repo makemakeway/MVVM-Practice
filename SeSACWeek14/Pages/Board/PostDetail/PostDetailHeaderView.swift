@@ -8,28 +8,28 @@
 import UIKit
 import SnapKit
 
-class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepresentable {
+class PostDetailHeaderView: UIView, ViewRepresentable {
     
     let profileImageView = UIImageView()
     let profileNameLabel = UILabel()
     let profileDateLabel = UILabel()
-    let contentLabel = UILabel()
+    var contentLabel = UILabel()
     let commentView = UIView()
     let commentImage = UIImageView()
     var commentLabel = UILabel()
     
     func setUpView() {
-        self.contentView.addSubview(profileImageView)
-        self.contentView.addSubview(profileNameLabel)
-        self.contentView.addSubview(profileDateLabel)
-        self.contentView.addSubview(contentLabel)
-        self.contentView.addSubview(commentView)
+        self.addSubview(profileImageView)
+        self.addSubview(profileNameLabel)
+        self.addSubview(profileDateLabel)
+        self.addSubview(contentLabel)
+        self.addSubview(commentView)
         commentView.addSubview(commentImage)
         commentView.addSubview(commentLabel)
         
-        profileImageView.backgroundColor = .systemTeal
+        profileImageView.backgroundColor = .systemIndigo
         profileImageView.image = UIImage(systemName: "person.fill")
-        profileImageView.tintColor = .systemGray
+        profileImageView.tintColor = .lightGray
         
         profileNameLabel.font = UIFont().mainFontBold
         
@@ -45,10 +45,7 @@ class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepre
         commentLabel.text = "댓글쓰기"
         commentLabel.font = UIFont().mainFontRegular
         
-        profileNameLabel.text = "zzzzz"
-        profileDateLabel.text = "12/01"
-        contentLabel.text = "zzfsdl,fds;fdsl;f,sl;df,dsl;f,sdf;lsd,fl"
-        
+        self.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setUpConstraints() {
@@ -76,16 +73,16 @@ class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepre
         commentView.snp.makeConstraints { make in
             make.top.equalTo(contentLabel.snp.bottom).offset(20)
             make.leading.equalToSuperview().offset(20)
-            make.bottom.trailing.equalToSuperview().offset(-20)
             make.height.equalTo(40)
+            make.bottom.equalToSuperview().offset(-20)
         }
-        
+
         commentImage.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.size.equalTo(20)
             make.centerY.equalToSuperview()
         }
-        
+
         commentLabel.snp.makeConstraints { make in
             make.leading.equalTo(commentImage.snp.trailing).offset(5)
             make.centerY.equalToSuperview()
@@ -94,12 +91,8 @@ class PostDetailHeaderView: UITableViewHeaderFooterView, ReusableView, ViewRepre
         
     }
     
-    static var reuseIdentifier: String {
-        return String(describing: self)
-    }
-    
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setUpView()
         setUpConstraints()
     }
