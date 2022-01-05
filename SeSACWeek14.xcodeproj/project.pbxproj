@@ -16,6 +16,10 @@
 		C230C78B2782BA06008DBF47 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = C230C78A2782BA06008DBF47 /* RxRelay */; };
 		C230C78D2782BA06008DBF47 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C230C78C2782BA06008DBF47 /* RxSwift */; };
 		C230C7D927843FBD008DBF47 /* EditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7D827843FBD008DBF47 /* EditViewModel.swift */; };
+		C230C7DB27846C30008DBF47 /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7DA27846C30008DBF47 /* PostDetailViewController.swift */; };
+		C230C7DD27846C47008DBF47 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7DC27846C47008DBF47 /* PostDetailView.swift */; };
+		C230C7DF27847249008DBF47 /* PostDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7DE27847249008DBF47 /* PostDetailHeaderView.swift */; };
+		C230C7E127849684008DBF47 /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7E027849684008DBF47 /* DateManager.swift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -71,6 +75,10 @@
 		C230C7362781FBA2008DBF47 /* EditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostViewController.swift; sourceTree = "<group>"; };
 		C230C7382781FBC9008DBF47 /* EditPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPostView.swift; sourceTree = "<group>"; };
 		C230C7D827843FBD008DBF47 /* EditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewModel.swift; sourceTree = "<group>"; };
+		C230C7DA27846C30008DBF47 /* PostDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
+		C230C7DC27846C47008DBF47 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
+		C230C7DE27847249008DBF47 /* PostDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailHeaderView.swift; sourceTree = "<group>"; };
+		C230C7E027849684008DBF47 /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		C2678769277947F700BF243D /* SeSACWeek14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek14.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C267876C277947F700BF243D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C267876E277947F700BF243D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -288,6 +296,7 @@
 				C26787C8277BF2AB00BF243D /* EndPoint.swift */,
 				C26787A927795FBB00BF243D /* Observable.swift */,
 				C26E91D4277F67FF00ED65E2 /* LoadingIndicator.swift */,
+				C230C7E027849684008DBF47 /* DateManager.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -333,6 +342,9 @@
 		C26E91D2277F455D00ED65E2 /* PostDetail */ = {
 			isa = PBXGroup;
 			children = (
+				C230C7DA27846C30008DBF47 /* PostDetailViewController.swift */,
+				C230C7DC27846C47008DBF47 /* PostDetailView.swift */,
+				C230C7DE27847249008DBF47 /* PostDetailHeaderView.swift */,
 			);
 			path = PostDetail;
 			sourceTree = "<group>";
@@ -480,9 +492,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C230C7D927843FBD008DBF47 /* EditViewModel.swift in Sources */,
+				C230C7DF27847249008DBF47 /* PostDetailHeaderView.swift in Sources */,
 				C26E91CC277F15F600ED65E2 /* BoardTableViewCell.swift in Sources */,
 				C26E91CA277F122800ED65E2 /* UIViewController+Extension.swift in Sources */,
 				C230C7372781FBA2008DBF47 /* EditPostViewController.swift in Sources */,
+				C230C7E127849684008DBF47 /* DateManager.swift in Sources */,
 				C26787A627795B2A00BF243D /* MainViewController.swift in Sources */,
 				C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */,
 				C2678771277947F700BF243D /* SignInViewController.swift in Sources */,
@@ -491,6 +505,7 @@
 				C230C73227816B75008DBF47 /* ChangePasswordView.swift in Sources */,
 				C267876D277947F700BF243D /* AppDelegate.swift in Sources */,
 				C26E91C2277C8FF600ED65E2 /* Board.swift in Sources */,
+				C230C7DB27846C30008DBF47 /* PostDetailViewController.swift in Sources */,
 				C230C73427817B23008DBF47 /* ChangePasswordViewModel.swift in Sources */,
 				C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */,
 				C230C73027816B55008DBF47 /* ChangePasswordViewController.swift in Sources */,
@@ -499,6 +514,7 @@
 				C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */,
 				C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */,
 				C26787A42779573D00BF243D /* Auth.swift in Sources */,
+				C230C7DD27846C47008DBF47 /* PostDetailView.swift in Sources */,
 				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
 				C26E91D5277F67FF00ED65E2 /* LoadingIndicator.swift in Sources */,
 				C26E91C4277C95F400ED65E2 /* BoardViewModel.swift in Sources */,

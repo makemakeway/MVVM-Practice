@@ -10,7 +10,7 @@ struct BoardElement: Codable {
     let id: Int
     let text: String
     let user: User
-    let createdAt, updatedAt: String
+    var createdAt, updatedAt: String
     let comments: [Comment]
 
     enum CodingKeys: String, CodingKey {

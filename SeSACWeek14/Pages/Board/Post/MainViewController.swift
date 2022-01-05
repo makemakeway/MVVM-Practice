@@ -27,12 +27,39 @@ class MainViewController: UIViewController {
     }
     
     func bind() {
-        viewModel.boards
+        mainView.tableView.rx.modelSelected(BoardElement.self)
+            .subscribe { [weak self](value) in
+                print(value)
+                let vc = PostDetailViewController()
+                self?.navigationController?.pushViewController(vc, animated: true)
+            } onError: { error in
+                print(error)
+            } onCompleted: {
+                
+            } onDisposed: {
+                print("Disposed")
+            }
+            .disposed(by: disposeBag)
+
+        
+        viewModel.boardViewModel
             .bind(to: mainView.tableView.rx.items) { (tableView, row, element) in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: BoardTableViewCell.reuseIdentifier) as? BoardTableViewCell else { return UITableViewCell() }
                 
                 cell.usernameLabel.text = element.user.username
                 cell.contentLabel.text = element.text
+                
+                let date = DateManager.shared.stringToDate(string: element.updatedAt)
+                let dateString = DateManager.shared.dateToString(date: date)
+                
+                cell.dateLabel.text = dateString
+                cell.selectionStyle = .none
+                
+                if element.comments.count == 0 {
+                    cell.commentLabel.text = "댓글쓰기"
+                } else {
+                    cell.commentLabel.text = "댓글 \(element.comments.count)"
+                }
                 
                 return cell
             }
@@ -57,8 +84,9 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "새싹농장"
         mainView.tableView.register(BoardTableViewCell.self, forCellReuseIdentifier: BoardTableViewCell.reuseIdentifier)
-        
+        mainView.tableView.rowHeight = UITableView.automaticDimension
         bind()
         
         viewModel.fetchBoard()
