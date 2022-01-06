@@ -9,11 +9,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum EditCase {
+    case add
+    case edit
+}
+
 class EditPostViewController: UIViewController {
     //MARK: Properties
     
     let viewModel = EditViewModel()
     let disposeBag = DisposeBag()
+    var editCase: EditCase = .add
     
     //MARK: UI
     let mainView = EditPostView()
@@ -21,33 +27,71 @@ class EditPostViewController: UIViewController {
     
     //MARK: Method
     
-    func navigationBarConfig() {
-        let confirmButton = UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(confirmButtonClicked(_:)))
-        self.navigationItem.setRightBarButtonItems([confirmButton], animated: false)
-    }
-    
-    @objc func confirmButtonClicked(_ sender: UIBarButtonItem) {
-        print("완료")
-        viewModel.postTextContent()
-        viewModel.textContent
-            .subscribe { _ in
-                
-            } onError: { error in
-                print(error)
-                
-            } onCompleted: { [weak self] in
-                print("포스트 작성 완료")
-                self?.navigationController?.popViewController(animated: true)
+    func bind() {
+        mainView.textView.rx.text.orEmpty
+            .bind(to: viewModel.textContent)
+            .disposed(by: disposeBag)
+        
+        mainView.xButton.rx.tap
+            .bind { [weak self](_) in
+                print("tap")
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        
+        mainView.confirmButton.rx.tap
+            .bind { [weak self](_) in
+                print("tap")
+                switch self?.editCase {
+                case .add:
+                    self?.viewModel.postTextContent()
+                case .edit:
+                    self?.viewModel.editPostContent()
+                case .none:
+                    print("에러")
+                }
             }
             .disposed(by: disposeBag)
 
+        viewModel.tap
+            .subscribe { _ in
+                
+            } onError: { error in
+                let error = error as? APIError
+                print(error)
+            } onCompleted: { [weak self] in
+                print("포스트 작성 완료")
+                self?.dismiss(animated: true, completion: nil)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.element
+            .subscribe { [weak self](element) in
+                self?.dataPushAtPresentingVC(element: element)
+            }
+            .disposed(by: disposeBag)
     }
     
+    func dataPushAtPresentingVC(element: BoardElement) {
+        switch editCase {
+        case .add:
+            let nav = self.presentingViewController as! UINavigationController
+            let preVC = nav.topViewController as! MainViewController
+            preVC.viewModel.fetchBoard()
+        case .edit:
+            let nav = self.presentingViewController as! UINavigationController
+            let preVC = nav.topViewController as! PostDetailViewController
+            preVC.viewModel.boardElement
+                .accept(element)
+        }
+    }
+    
+    
+    //MARK: LifeCycle
     deinit {
         print("===EditView Deinit===")
     }
     
-    //MARK: LifeCycle
     override func loadView() {
         super.loadView()
         self.view = mainView
@@ -55,10 +99,8 @@ class EditPostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBarConfig()
-        mainView.textView.rx.text.orEmpty
-            .bind(to: viewModel.textContent)
-            .disposed(by: disposeBag)
+        bind()
+        self.title = "새싹농장 글쓰기"
     }
     
     override func viewWillAppear(_ animated: Bool) {

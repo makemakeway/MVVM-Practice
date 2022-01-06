@@ -86,6 +86,17 @@ class APIService {
         URLSession.request(endPoint: request, completion: completion)
     }
     
+    static func editPost(token: String, text: String, id: Int, completion: @escaping (BoardElement?, APIError?) -> Void) {
+        let url = EndPoint.boardDetail(id: id).url
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.httpBody = "text=\(text)".data(using: .utf8, allowLossyConversion: false)
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.request(endPoint: request, completion: completion)
+    }
+    
     static func fetchComment(token: String, postId: Int, completion: @escaping (CommentDetailElement?, APIError?) -> Void) {
         let urlString = "http://test.monocoding.com:1231/comments"
         var component = URLComponents(string: urlString)

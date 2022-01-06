@@ -23,7 +23,8 @@ class MainViewController: UIViewController {
     
     @objc func addPostButtonClicked(_ sender: UIButton) {
         let vc = EditPostViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
     
     func bind() {

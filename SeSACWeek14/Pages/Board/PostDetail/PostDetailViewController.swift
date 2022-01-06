@@ -32,7 +32,6 @@ class PostDetailViewController: UIViewController {
                 let dateString = DateManager.shared.dateToString(date: date)
                 
                 self?.mainView.headerView.profileDateLabel.text = dateString
-                
             }
             .disposed(by: disposeBag)
         
@@ -42,6 +41,64 @@ class PostDetailViewController: UIViewController {
                 cell.commentContentLabel.text = element.comment
             }
             .disposed(by: disposeBag)
+    }
+    
+    func navigationBarConfig() {
+        let button = UIButton()
+        button.setImage(UIImage(systemName: "ellipsis"), for: .normal)
+        button.tintColor = .darkGray
+        button.transform = button.transform.rotated(by: .pi / 2)
+        button.addTarget(self, action: #selector(detailButtonClicked(_:)), for: .touchUpInside)
+        
+        let detailButton = UIBarButtonItem(customView: button)
+        
+        self.navigationItem.setRightBarButtonItems([detailButton], animated: false)
+    }
+    
+    func presentActionSheet() {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let edit = UIAlertAction(title: "포스트 수정", style: .default) { [weak self](_) in
+            guard let self = self else { return }
+            let vc = EditPostViewController()
+            let text = self.viewModel.boardElement.value.text
+            vc.mainView.textView.text = text
+            vc.editCase = .edit
+            vc.viewModel.postId = self.viewModel.boardElement.value.id
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
+        }
+        let delete = UIAlertAction(title: "포스트 삭제", style: .destructive) { [weak self](_) in
+            let alert = UIAlertController(title: "삭제", message: "포스트를 정말 삭제하시겠어요?", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "삭제", style: .default) { [weak self](_) in
+                print("삭제하기")
+            }
+            let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
+            alert.addAction(ok)
+            alert.addAction(cancel)
+            self?.present(alert, animated: true, completion: nil)
+        }
+        
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        alert.addAction(edit)
+        alert.addAction(delete)
+        alert.addAction(cancel)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func isYourPost() -> Bool {
+        let currentUserId = UserDefaults.standard.integer(forKey: "id")
+        let currentPostUserId = viewModel.boardElement.value.user.id
+        let result = currentUserId == currentPostUserId ? true : false
+        return result
+    }
+    
+    @objc func detailButtonClicked(_ sender: UIBarButtonItem) {
+        print("click")
+        if isYourPost() {
+            presentActionSheet()
+        } else {
+            print("토스트 메시지 띄우기")
+        }
     }
     
     //MARK: LifeCycle
@@ -57,6 +114,7 @@ class PostDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationBarConfig()
         bind()
     }
     

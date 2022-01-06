@@ -39,7 +39,6 @@
 		C26787A42779573D00BF243D /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A32779573D00BF243D /* Auth.swift */; };
 		C26787A627795B2A00BF243D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A527795B2A00BF243D /* MainViewController.swift */; };
 		C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A727795EEA00BF243D /* SignInViewModel.swift */; };
-		C26787AA27795FBB00BF243D /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787A927795FBB00BF243D /* Observable.swift */; };
 		C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787B32779DD4500BF243D /* SignUpViewController.swift */; };
 		C26787B62779DD6300BF243D /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787B52779DD6300BF243D /* SignUpView.swift */; };
 		C26787B82779FB5600BF243D /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26787B72779FB5500BF243D /* SignUpViewModel.swift */; };
@@ -106,7 +105,6 @@
 		C26787A32779573D00BF243D /* Auth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		C26787A527795B2A00BF243D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		C26787A727795EEA00BF243D /* SignInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewModel.swift; sourceTree = "<group>"; };
-		C26787A927795FBB00BF243D /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		C26787B32779DD4500BF243D /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		C26787B52779DD6300BF243D /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		C26787B72779FB5500BF243D /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
@@ -306,7 +304,6 @@
 			isa = PBXGroup;
 			children = (
 				C26787C8277BF2AB00BF243D /* EndPoint.swift */,
-				C26787A927795FBB00BF243D /* Observable.swift */,
 				C26E91D4277F67FF00ED65E2 /* LoadingIndicator.swift */,
 				C230C7E027849684008DBF47 /* DateManager.swift */,
 			);
@@ -527,7 +524,6 @@
 				C26787B42779DD4500BF243D /* SignUpViewController.swift in Sources */,
 				C230C73027816B55008DBF47 /* ChangePasswordViewController.swift in Sources */,
 				C26787B62779DD6300BF243D /* SignUpView.swift in Sources */,
-				C26787AA27795FBB00BF243D /* Observable.swift in Sources */,
 				C26787A827795EEA00BF243D /* SignInViewModel.swift in Sources */,
 				C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */,
 				C230C7E7278597C2008DBF47 /* CommentTableViewCell.swift in Sources */,
