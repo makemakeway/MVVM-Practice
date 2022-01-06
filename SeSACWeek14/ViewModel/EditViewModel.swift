@@ -17,6 +17,21 @@ class EditViewModel {
     
     let token = UserDefaults.standard.string(forKey: "token")
     
+    func errorHandler(error: APIError) {
+        switch error {
+        case .invalidResponse:
+            self.tap.onError(APIError.invalidResponse)
+        case .tokenExpired:
+            self.tap.onError(APIError.tokenExpired)
+        case .noData:
+            self.tap.onError(APIError.noData)
+        case .failed:
+            self.tap.onError(APIError.failed)
+        case .invalidData:
+            self.tap.onError(APIError.invalidData)
+        }
+    }
+    
     func editPostContent() {
         guard let token = token else {
             tap.onError(APIError.tokenExpired)
@@ -37,18 +52,8 @@ class EditViewModel {
                 LoadingIndicator.shared.hideIndicator()
                 return
             }
-            switch error {
-            case .invalidResponse:
-                self?.tap.onError(APIError.invalidResponse)
-            case .tokenExpired:
-                self?.tap.onError(APIError.tokenExpired)
-            case .noData:
-                self?.tap.onError(APIError.noData)
-            case .failed:
-                self?.tap.onError(APIError.failed)
-            case .invalidData:
-                self?.tap.onError(APIError.invalidData)
-            }
+            self?.errorHandler(error: error)
+            
             LoadingIndicator.shared.hideIndicator()
         }
     }
@@ -67,20 +72,11 @@ class EditViewModel {
                 LoadingIndicator.shared.hideIndicator()
                 return
             }
-            switch error {
-            case .invalidResponse:
-                self?.tap.onError(APIError.invalidResponse)
-            case .tokenExpired:
-                self?.tap.onError(APIError.tokenExpired)
-            case .noData:
-                self?.tap.onError(APIError.noData)
-            case .failed:
-                self?.tap.onError(APIError.failed)
-            case .invalidData:
-                self?.tap.onError(APIError.invalidData)
-            }
+            self?.errorHandler(error: error)
             LoadingIndicator.shared.hideIndicator()
         }
     }
+    
+
     
 }

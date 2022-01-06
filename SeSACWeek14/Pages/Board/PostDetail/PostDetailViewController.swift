@@ -22,6 +22,22 @@ class PostDetailViewController: UIViewController {
     
     //MARK: Method
     func bind() {
+        viewModel.deleteObservable
+            .subscribe { [weak self](error) in
+                guard let error = error.element, let error = error else {
+                    print("삭제 완료 됐을 때")
+                    let i = self?.navigationController?.viewControllers.firstIndex(of: self!)
+                    let previousViewController = self?.navigationController?.viewControllers[i!-1] as! MainViewController
+                    previousViewController.viewModel.fetchBoard()
+                    
+                    self?.navigationController?.popViewController(animated: true)
+                    return
+                }
+                print("삭제 실패 후 에러 핸들링")
+                print(error)
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.boardElement
             .bind { [weak self](element) in
                 self?.mainView.headerView.contentLabel.text = element.text
@@ -67,15 +83,12 @@ class PostDetailViewController: UIViewController {
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: true, completion: nil)
         }
+        
         let delete = UIAlertAction(title: "포스트 삭제", style: .destructive) { [weak self](_) in
-            let alert = UIAlertController(title: "삭제", message: "포스트를 정말 삭제하시겠어요?", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "삭제", style: .default) { [weak self](_) in
+            self?.deleteAlert(title: "포스트 삭제", message: "포스트를 정말 삭제하시겠어요?", buttonTitle: "삭제") { [weak self](_) in
                 print("삭제하기")
+                self?.viewModel.deletePost()
             }
-            let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
-            alert.addAction(ok)
-            alert.addAction(cancel)
-            self?.present(alert, animated: true, completion: nil)
         }
         
         let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
@@ -102,6 +115,10 @@ class PostDetailViewController: UIViewController {
     }
     
     //MARK: LifeCycle
+    deinit {
+        print("===DetailView Deinit===")
+    }
+    
     init(element: BoardElement) {
         self.viewModel = PostDetailViewModel(element: element)
         super.init(nibName: nil, bundle: nil)

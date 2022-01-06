@@ -97,6 +97,16 @@ class APIService {
         URLSession.request(endPoint: request, completion: completion)
     }
     
+    static func deletePost(token: String, id: Int, completion: @escaping (APIError?) -> Void) {
+        let url = EndPoint.boardDetail(id: id).url
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.request(endPoint: request, completion: completion)
+    }
+    
     static func fetchComment(token: String, postId: Int, completion: @escaping (CommentDetailElement?, APIError?) -> Void) {
         let urlString = "http://test.monocoding.com:1231/comments"
         var component = URLComponents(string: urlString)

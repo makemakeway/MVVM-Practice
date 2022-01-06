@@ -58,7 +58,7 @@ class EditPostViewController: UIViewController {
                 
             } onError: { error in
                 let error = error as? APIError
-                print(error)
+                print("포스트 작성 실패 핸들링")
             } onCompleted: { [weak self] in
                 print("포스트 작성 완료")
                 self?.dismiss(animated: true, completion: nil)

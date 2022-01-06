@@ -17,6 +17,17 @@ extension UIViewController {
         }
     }
     
+    func deleteAlert(title: String, message: String, buttonTitle: String, completion: ((UIAlertAction) -> Void)?) {
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let delete = UIAlertAction(title: buttonTitle, style: .default, handler: completion)
+            let cancel = UIAlertAction(title: "취소", style: .default, handler: nil)
+            alert.addAction(delete)
+            alert.addAction(cancel)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func changeRootView(viewController: UIViewController) {
         DispatchQueue.main.async {
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
