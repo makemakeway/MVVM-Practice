@@ -7,12 +7,14 @@
 
 import UIKit
 import SnapKit
+import RxSwift
 
 class CommentTableViewCell: UITableViewCell, ViewRepresentable {
     
     let usernameLabel = UILabel()
     let commentContentLabel = UILabel()
     let commentInfoButton = UIButton()
+    var disposeBag = DisposeBag()
     
     func setUpView() {
         self.contentView.addSubview(usernameLabel)
@@ -51,6 +53,14 @@ class CommentTableViewCell: UITableViewCell, ViewRepresentable {
         
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
+    deinit {
+        print("===Comment Table View Cell Deinit===")
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

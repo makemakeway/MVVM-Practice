@@ -14,7 +14,7 @@ class PostDetailViewController: UIViewController {
     
     var viewModel: PostDetailViewModel
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     //MARK: UI
     let mainView = PostDetailView()
@@ -24,10 +24,11 @@ class PostDetailViewController: UIViewController {
     func bind() {
         viewModel.deleteObservable
             .subscribe { [weak self](error) in
+                guard let self = self else { return }
                 guard let error = error.element, let error = error else {
                     print("삭제 완료 됐을 때")
-                    self?.pushDataAtPreviousVC()
-                    self?.navigationController?.popViewController(animated: true)
+                    self.pushDataAtPreviousVC()
+                    self.navigationController?.popViewController(animated: true)
                     return
                 }
                 print("삭제 실패 후 에러 핸들링")
@@ -37,21 +38,36 @@ class PostDetailViewController: UIViewController {
         
         viewModel.boardElement
             .bind { [weak self](element) in
-                self?.mainView.headerView.contentLabel.text = element.text
-                self?.mainView.headerView.commentLabel.text = "댓글 \(element.comments.count)"
-                self?.mainView.headerView.profileNameLabel.text = element.user.username
+                guard let self = self else { return }
+                self.mainView.headerView.contentLabel.text = element.text
+                self.mainView.headerView.commentLabel.text = "댓글 \(element.comments.count)"
+                self.mainView.headerView.profileNameLabel.text = element.user.username
                 
                 let date = DateManager.shared.stringToDate(string: element.updatedAt)
                 let dateString = DateManager.shared.dateToString(date: date)
                 
-                self?.mainView.headerView.profileDateLabel.text = dateString
+                self.mainView.headerView.profileDateLabel.text = dateString
             }
             .disposed(by: disposeBag)
         
         viewModel.commentsObservable
-            .bind(to: mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.reuseIdentifier, cellType: CommentTableViewCell.self)) { (row, element, cell) in
+            .bind(to: mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.reuseIdentifier, cellType: CommentTableViewCell.self)) { [weak self](row, element, cell) in
+                guard let self = self else { return }
                 cell.usernameLabel.text = "\(element.user.username)"
                 cell.commentContentLabel.text = element.comment
+                cell.selectionStyle = .none
+                
+                //MARK: 메모리 누수 발생
+                cell.commentInfoButton.rx.tap
+                    .bind { (_) in
+                        if self.isCurrentUser(element: element) {
+                            print("내 댓글이당!")
+                            return
+                        } else {
+                            print("토스트 메시지 띄우기")
+                        }
+                    }
+                    .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
         
@@ -71,6 +87,29 @@ class PostDetailViewController: UIViewController {
                 print("댓글 추가하고 뷰 맨 마지막으로 내리는거 해야함")
             }
             .disposed(by: disposeBag)
+
+    }
+    
+    func isCurrentUser(element: CommentDetail) -> Bool {
+        let currentUserId = UserDefaults.standard.integer(forKey: "id")
+        print("CURRENT USER: \(currentUserId)")
+        let currentCommentUserId = element.user.id
+        print("COMMENT USER: \(currentCommentUserId)")
+        let isCurrentUser = currentUserId == currentCommentUserId ? true : false
+        return isCurrentUser
+    }
+    
+    func makeActionSheet(firstHandler: ((UIAlertAction) -> Void)?, secondHandler: ((UIAlertAction) -> Void)?) {
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let editComment = UIAlertAction(title: "댓글 수정", style: .default, handler: firstHandler)
+        let deleteComment = UIAlertAction(title: "댓글 삭제", style: .default, handler: secondHandler)
+        let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        
+        [editComment, deleteComment, cancel].forEach {
+            actionSheet.addAction($0)
+        }
+        
+        self.present(actionSheet, animated: true, completion: nil)
     }
     
     func textFieldIsEmpty() -> Bool {
@@ -157,6 +196,12 @@ class PostDetailViewController: UIViewController {
         super.viewDidLoad()
         navigationBarConfig()
         bind()
+        mainView.tableView.delegate = self
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeBag = DisposeBag()
     }
     
     override func viewDidLayoutSubviews() {
@@ -184,5 +229,14 @@ class PostDetailViewController: UIViewController {
                                                               updatedAt: "",
                                                               comments: []))
         super.init(coder: coder)
+    }
+}
+
+extension PostDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.reuseIdentifier, for: indexPath) as? CommentTableViewCell else {
+            return
+        }
+        cell.disposeBag = DisposeBag()
     }
 }
