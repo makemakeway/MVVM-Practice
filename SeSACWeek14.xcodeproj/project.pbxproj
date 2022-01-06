@@ -25,6 +25,9 @@
 		C230C7EB2785A7DB008DBF47 /* PostDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7EA2785A7DB008DBF47 /* PostDetailViewModel.swift */; };
 		C230C7ED2785E534008DBF47 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7EC2785E534008DBF47 /* Comment.swift */; };
 		C230C7EF278602C6008DBF47 /* PostDetailFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7EE278602C6008DBF47 /* PostDetailFooterView.swift */; };
+		C230C7F62786FC37008DBF47 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = C230C7F52786FC37008DBF47 /* Toast */; };
+		C230C7F82786FDEF008DBF47 /* EditCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7F72786FDEF008DBF47 /* EditCommentViewController.swift */; };
+		C230C7FA2786FE37008DBF47 /* EditCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7F92786FE37008DBF47 /* EditCommentView.swift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -88,6 +91,8 @@
 		C230C7EA2785A7DB008DBF47 /* PostDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailViewModel.swift; sourceTree = "<group>"; };
 		C230C7EC2785E534008DBF47 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		C230C7EE278602C6008DBF47 /* PostDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailFooterView.swift; sourceTree = "<group>"; };
+		C230C7F72786FDEF008DBF47 /* EditCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommentViewController.swift; sourceTree = "<group>"; };
+		C230C7F92786FE37008DBF47 /* EditCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommentView.swift; sourceTree = "<group>"; };
 		C2678769277947F700BF243D /* SeSACWeek14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek14.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C267876C277947F700BF243D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C267876E277947F700BF243D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -125,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C230C7F62786FC37008DBF47 /* Toast in Frameworks */,
 				C230C7892782BA06008DBF47 /* RxCocoa in Frameworks */,
 				C26E91BD277C7E3300ED65E2 /* SkeletonView in Frameworks */,
 				C230C78D2782BA06008DBF47 /* RxSwift in Frameworks */,
@@ -357,6 +363,8 @@
 				C230C7DE27847249008DBF47 /* PostDetailHeaderView.swift */,
 				C230C7E6278597C2008DBF47 /* CommentTableViewCell.swift */,
 				C230C7EE278602C6008DBF47 /* PostDetailFooterView.swift */,
+				C230C7F72786FDEF008DBF47 /* EditCommentViewController.swift */,
+				C230C7F92786FE37008DBF47 /* EditCommentView.swift */,
 			);
 			path = PostDetail;
 			sourceTree = "<group>";
@@ -383,6 +391,7 @@
 				C230C7882782BA06008DBF47 /* RxCocoa */,
 				C230C78A2782BA06008DBF47 /* RxRelay */,
 				C230C78C2782BA06008DBF47 /* RxSwift */,
+				C230C7F52786FC37008DBF47 /* Toast */,
 			);
 			productName = SeSACWeek14;
 			productReference = C2678769277947F700BF243D /* SeSACWeek14.app */;
@@ -460,6 +469,7 @@
 				C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */,
 				C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				C230C7F42786FC37008DBF47 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = C267876A277947F700BF243D /* Products */;
 			projectDirPath = "";
@@ -509,6 +519,7 @@
 				C26E91CA277F122800ED65E2 /* UIViewController+Extension.swift in Sources */,
 				C230C7372781FBA2008DBF47 /* EditPostViewController.swift in Sources */,
 				C230C7E127849684008DBF47 /* DateManager.swift in Sources */,
+				C230C7F82786FDEF008DBF47 /* EditCommentViewController.swift in Sources */,
 				C26787A627795B2A00BF243D /* MainViewController.swift in Sources */,
 				C230C7ED2785E534008DBF47 /* Comment.swift in Sources */,
 				C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */,
@@ -528,6 +539,7 @@
 				C230C7392781FBC9008DBF47 /* EditPostView.swift in Sources */,
 				C230C7E7278597C2008DBF47 /* CommentTableViewCell.swift in Sources */,
 				C26787A42779573D00BF243D /* Auth.swift in Sources */,
+				C230C7FA2786FE37008DBF47 /* EditCommentView.swift in Sources */,
 				C230C7DD27846C47008DBF47 /* PostDetailView.swift in Sources */,
 				C26787C9277BF2AB00BF243D /* EndPoint.swift in Sources */,
 				C230C7EF278602C6008DBF47 /* PostDetailFooterView.swift in Sources */,
@@ -902,6 +914,14 @@
 				kind = branch;
 			};
 		};
+		C230C7F42786FC37008DBF47 /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		C267879E27794C0F00BF243D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -935,6 +955,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		C230C7F52786FC37008DBF47 /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C230C7F42786FC37008DBF47 /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 		C267879F27794C0F00BF243D /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;

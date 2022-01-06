@@ -130,4 +130,14 @@ class APIService {
         
         URLSession.request(endPoint: request, completion: completion)
     }
+    
+    static func deleteComment(token: String, commentId: Int, completion: @escaping (APIError?) -> Void) {
+        let url = EndPoint.commentDetail(id: commentId).url
+        var request = URLRequest(url: url)
+        request.httpMethod = "DELETE"
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        
+        URLSession.request(endPoint: request, completion: completion)
+    }
 }

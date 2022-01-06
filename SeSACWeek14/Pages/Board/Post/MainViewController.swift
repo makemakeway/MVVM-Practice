@@ -50,7 +50,7 @@ class MainViewController: UIViewController {
                 cell.contentLabel.text = element.text
                 
                 //MARK: date 처리하는 부분 뷰모델에서 처리해야 할 것 같은데 엏덯게해야할지모르겟다
-                let date = DateManager.shared.stringToDate(string: element.updatedAt)
+                let date = DateManager.shared.stringToDate(string: element.createdAt)
                 let dateString = DateManager.shared.dateToString(date: date)
                 
                 cell.dateLabel.text = dateString

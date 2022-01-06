@@ -8,6 +8,7 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import Toast
 
 class PostDetailViewController: UIViewController {
     //MARK: Properties
@@ -27,6 +28,7 @@ class PostDetailViewController: UIViewController {
                 guard let self = self else { return }
                 guard let error = error.element, let error = error else {
                     print("삭제 완료 됐을 때")
+                    self.view.makeToast("포스트가 삭제되었습니다.")
                     self.pushDataAtPreviousVC()
                     self.navigationController?.popViewController(animated: true)
                     return
@@ -43,7 +45,7 @@ class PostDetailViewController: UIViewController {
                 self.mainView.headerView.commentLabel.text = "댓글 \(element.comments.count)"
                 self.mainView.headerView.profileNameLabel.text = element.user.username
                 
-                let date = DateManager.shared.stringToDate(string: element.updatedAt)
+                let date = DateManager.shared.stringToDate(string: element.createdAt)
                 let dateString = DateManager.shared.dateToString(date: date)
                 
                 self.mainView.headerView.profileDateLabel.text = dateString
@@ -62,9 +64,18 @@ class PostDetailViewController: UIViewController {
                     .bind { (_) in
                         if self.isCurrentUser(element: element) {
                             print("내 댓글이당!")
-                            return
+                            self.makeActionSheet { (_) in
+                                print("수정")
+                                let vc = EditCommentViewController()
+                                self.present(vc, animated: true, completion: nil)
+                            } secondHandler: { (_) in
+                                self.deleteAlert(title: "삭제", message: "댓글을 정말 삭제하시겠어요?", buttonTitle: "삭제") { (_) in
+                                    print("삭제")
+                                    self.viewModel.deleteComment(commentId: element.id, postId: element.post.id)
+                                }
+                            }
                         } else {
-                            print("토스트 메시지 띄우기")
+                            self.view.makeToast("사용자의 댓글이 아닙니다.")
                         }
                     }
                     .disposed(by: cell.disposeBag)
@@ -173,7 +184,7 @@ class PostDetailViewController: UIViewController {
         if isYourPost() {
             presentActionSheet()
         } else {
-            print("토스트 메시지 띄우기")
+            self.view.makeToast("사용자의 포스트가 아닙니다.")
         }
     }
     

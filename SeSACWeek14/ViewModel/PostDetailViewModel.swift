@@ -42,7 +42,9 @@ class PostDetailViewModel {
         guard let token = token else {
             return
         }
+        LoadingIndicator.shared.showIndicator()
         APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
+            LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
                 print(error!)
                 return
@@ -59,7 +61,24 @@ class PostDetailViewModel {
         guard let token = token else {
             return
         }
+        LoadingIndicator.shared.showIndicator()
         APIService.addComment(token: token, postId: postId, comment: commentText.value) { [weak self](value, error) in
+            LoadingIndicator.shared.hideIndicator()
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            self?.fetchComment(postId: postId)
+        }
+    }
+    
+    func deleteComment(commentId: Int, postId: Int) {
+        guard let token = token else {
+            return
+        }
+        LoadingIndicator.shared.showIndicator()
+        APIService.deleteComment(token: token, commentId: commentId) { [weak self](error) in
+            LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
                 print(error!)
                 return
