@@ -26,10 +26,7 @@ class PostDetailViewController: UIViewController {
             .subscribe { [weak self](error) in
                 guard let error = error.element, let error = error else {
                     print("삭제 완료 됐을 때")
-                    let i = self?.navigationController?.viewControllers.firstIndex(of: self!)
-                    let previousViewController = self?.navigationController?.viewControllers[i!-1] as! MainViewController
-                    previousViewController.viewModel.fetchBoard()
-                    
+                    self?.pushDataAtPreviousVC()
                     self?.navigationController?.popViewController(animated: true)
                     return
                 }
@@ -57,6 +54,33 @@ class PostDetailViewController: UIViewController {
                 cell.commentContentLabel.text = element.comment
             }
             .disposed(by: disposeBag)
+        
+        mainView.footerView.textField.rx.text.orEmpty
+            .bind(to: viewModel.commentText)
+            .disposed(by: disposeBag)
+        
+        mainView.footerView.textField.rx.controlEvent(.editingDidEndOnExit)
+            .bind { [weak self](_) in
+                guard let self = self else { return }
+                if self.textFieldIsEmpty() {
+                    self.makeAlert(title: "오류", message: "댓글을 입력해주세요.", buttonTitle: "확인", completion: nil)
+                    return
+                }
+                let postId = self.viewModel.boardElement.value.id
+                self.viewModel.postComment(postId: postId)
+                print("댓글 추가하고 뷰 맨 마지막으로 내리는거 해야함")
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func textFieldIsEmpty() -> Bool {
+        return self.mainView.footerView.textField.text!.isEmpty
+    }
+            
+    func pushDataAtPreviousVC() {
+        let i = self.navigationController?.viewControllers.firstIndex(of: self)
+        let previousViewController = self.navigationController?.viewControllers[i!-1] as! MainViewController
+        previousViewController.viewModel.fetchBoard()
     }
     
     func navigationBarConfig() {

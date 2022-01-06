@@ -24,7 +24,7 @@ class PostDetailView: UIView, ViewRepresentable {
     func setUpConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalTo(safeAreaLayoutGuide).offset(-60)
         }
         
         footerView.snp.makeConstraints { make in

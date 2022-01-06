@@ -55,8 +55,17 @@ class PostDetailViewModel {
         }
     }
     
-    func postComment() {
-        
+    func postComment(postId: Int) {
+        guard let token = token else {
+            return
+        }
+        APIService.addComment(token: token, postId: postId, comment: commentText.value) { [weak self](value, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            self?.fetchComment(postId: postId)
+        }
     }
     
     init(element: BoardElement) {
