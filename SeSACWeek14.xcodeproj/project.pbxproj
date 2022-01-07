@@ -28,6 +28,7 @@
 		C230C7F62786FC37008DBF47 /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = C230C7F52786FC37008DBF47 /* Toast */; };
 		C230C7F82786FDEF008DBF47 /* EditCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7F72786FDEF008DBF47 /* EditCommentViewController.swift */; };
 		C230C7FA2786FE37008DBF47 /* EditCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7F92786FE37008DBF47 /* EditCommentView.swift */; };
+		C230C7FC27872F06008DBF47 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C230C7FB27872F06008DBF47 /* ViewModelType.swift */; };
 		C267876D277947F700BF243D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876C277947F700BF243D /* AppDelegate.swift */; };
 		C267876F277947F700BF243D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C267876E277947F700BF243D /* SceneDelegate.swift */; };
 		C2678771277947F700BF243D /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2678770277947F700BF243D /* SignInViewController.swift */; };
@@ -56,6 +57,7 @@
 		C26E91CE277F166E00ED65E2 /* UITableViewCell+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CD277F166E00ED65E2 /* UITableViewCell+Extension.swift */; };
 		C26E91D0277F341800ED65E2 /* URLSession+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91CF277F341800ED65E2 /* URLSession+Extension.swift */; };
 		C26E91D5277F67FF00ED65E2 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26E91D4277F67FF00ED65E2 /* LoadingIndicator.swift */; };
+		C270948727885CAC00CF39E4 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C270948627885CAC00CF39E4 /* IQKeyboardManagerSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,7 @@
 		C230C7EE278602C6008DBF47 /* PostDetailFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailFooterView.swift; sourceTree = "<group>"; };
 		C230C7F72786FDEF008DBF47 /* EditCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommentViewController.swift; sourceTree = "<group>"; };
 		C230C7F92786FE37008DBF47 /* EditCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCommentView.swift; sourceTree = "<group>"; };
+		C230C7FB27872F06008DBF47 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		C2678769277947F700BF243D /* SeSACWeek14.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSACWeek14.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C267876C277947F700BF243D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C267876E277947F700BF243D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C270948727885CAC00CF39E4 /* IQKeyboardManagerSwift in Frameworks */,
 				C230C7F62786FC37008DBF47 /* Toast in Frameworks */,
 				C230C7892782BA06008DBF47 /* RxCocoa in Frameworks */,
 				C26E91BD277C7E3300ED65E2 /* SkeletonView in Frameworks */,
@@ -330,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				C26E91BF277C836400ED65E2 /* ViewRepresentable.swift */,
+				C230C7FB27872F06008DBF47 /* ViewModelType.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				C230C78A2782BA06008DBF47 /* RxRelay */,
 				C230C78C2782BA06008DBF47 /* RxSwift */,
 				C230C7F52786FC37008DBF47 /* Toast */,
+				C270948627885CAC00CF39E4 /* IQKeyboardManagerSwift */,
 			);
 			productName = SeSACWeek14;
 			productReference = C2678769277947F700BF243D /* SeSACWeek14.app */;
@@ -470,6 +476,7 @@
 				C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 				C230C7872782BA06008DBF47 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				C230C7F42786FC37008DBF47 /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				C270948527885CAC00CF39E4 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = C267876A277947F700BF243D /* Products */;
 			projectDirPath = "";
@@ -551,6 +558,7 @@
 				C26787CC277C3B7E00BF243D /* BoardView.swift in Sources */,
 				C267876F277947F700BF243D /* SceneDelegate.swift in Sources */,
 				C230C7EB2785A7DB008DBF47 /* PostDetailViewModel.swift in Sources */,
+				C230C7FC27872F06008DBF47 /* ViewModelType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,6 +946,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		C270948527885CAC00CF39E4 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -970,6 +986,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C26E91BB277C7E3300ED65E2 /* XCRemoteSwiftPackageReference "SkeletonView" */;
 			productName = SkeletonView;
+		};
+		C270948627885CAC00CF39E4 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C270948527885CAC00CF39E4 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

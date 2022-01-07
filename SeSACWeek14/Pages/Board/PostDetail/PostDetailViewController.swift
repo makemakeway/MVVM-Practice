@@ -66,7 +66,7 @@ class PostDetailViewController: UIViewController {
                             print("내 댓글이당!")
                             self.makeActionSheet { (_) in
                                 print("수정")
-                                let vc = EditCommentViewController()
+                                let vc = EditCommentViewController(viewModel: self.viewModel)
                                 self.present(vc, animated: true, completion: nil)
                             } secondHandler: { (_) in
                                 self.deleteAlert(title: "삭제", message: "댓글을 정말 삭제하시겠어요?", buttonTitle: "삭제") { (_) in
@@ -249,5 +249,11 @@ extension PostDetailViewController: UITableViewDelegate {
             return
         }
         cell.disposeBag = DisposeBag()
+    }
+}
+
+extension PostDetailViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        mainView.footerView.textField.resignFirstResponder()
     }
 }
