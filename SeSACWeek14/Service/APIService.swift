@@ -140,4 +140,15 @@ class APIService {
         
         URLSession.request(endPoint: request, completion: completion)
     }
+    
+    static func editComment(token: String, commentId: Int, postId: Int, comment: String, completion: @escaping (APIError?) -> Void) {
+        let url = EndPoint.commentDetail(id: commentId).url
+        var request = URLRequest(url: url)
+        request.httpMethod = "PUT"
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.httpBody = "comment=\(comment)&post=\(postId)".data(using: .utf8, allowLossyConversion: false)
+        
+        URLSession.request(endPoint: request, completion: completion)
+    }
 }

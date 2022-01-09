@@ -15,6 +15,8 @@ class PostDetailViewModel {
     var commentsObservable: PublishSubject<CommentDetailElement> = PublishSubject()
     var commentText = BehaviorRelay(value: "")
     var deleteObservable = PublishSubject<APIError?>()
+    var editCommentText = BehaviorRelay(value: "")
+    
     
     let token = UserDefaults.standard.string(forKey: "token")
     
@@ -81,6 +83,20 @@ class PostDetailViewModel {
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
                 print(error!)
+                return
+            }
+            self?.fetchComment(postId: postId)
+        }
+    }
+    
+    func editComment(commentId: Int, postId: Int) {
+        guard let token = token else {
+            return
+        }
+
+        LoadingIndicator.shared.showIndicator()
+        APIService.editComment(token: token, commentId: commentId, postId: postId, comment: editCommentText.value) { [weak self](error) in
+            guard error == nil else {
                 return
             }
             self?.fetchComment(postId: postId)
