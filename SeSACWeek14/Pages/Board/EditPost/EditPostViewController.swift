@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import IQKeyboardManagerSwift
 
 enum EditCase {
     case add
@@ -70,6 +71,13 @@ class EditPostViewController: UIViewController {
                 self?.dataPushAtPresentingVC(element: element)
             }
             .disposed(by: disposeBag)
+        
+        mainView.textView.rx.contentOffset
+            .map { $0.y }
+            .bind { [weak self](offset) in
+                print(offset)
+            }
+            .disposed(by: disposeBag)
     }
     
     func dataPushAtPresentingVC(element: BoardElement) {
@@ -100,11 +108,23 @@ class EditPostViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
-        self.title = "새싹농장 글쓰기"
+        mainView.navBar.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainView.textView.becomeFirstResponder()
+        IQKeyboardManager.shared.enable = false
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        IQKeyboardManager.shared.enable = true
+    }
+}
+
+extension EditPostViewController: UINavigationBarDelegate {
+    func position(for bar: UIBarPositioning) -> UIBarPosition {
+        return .topAttached
     }
 }

@@ -98,7 +98,6 @@ class PostDetailViewController: UIViewController {
                 print("댓글 추가하고 뷰 맨 마지막으로 내리는거 해야함")
             }
             .disposed(by: disposeBag)
-
     }
     
     func isCurrentUser(element: CommentDetail) -> Bool {
@@ -210,8 +209,14 @@ class PostDetailViewController: UIViewController {
         mainView.tableView.delegate = self
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isOpaque = false
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isOpaque = true
         disposeBag = DisposeBag()
     }
     
