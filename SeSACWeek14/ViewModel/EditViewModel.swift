@@ -17,22 +17,7 @@ class EditViewModel {
     
     let token = UserDefaults.standard.string(forKey: "token")
     
-    func errorHandler(error: APIError) {
-        switch error {
-        case .invalidResponse:
-            self.tap.onError(APIError.invalidResponse)
-        case .tokenExpired:
-            self.tap.onError(APIError.tokenExpired)
-        case .noData:
-            self.tap.onError(APIError.noData)
-        case .failed:
-            self.tap.onError(APIError.failed)
-        case .invalidData:
-            self.tap.onError(APIError.invalidData)
-        }
-    }
-    
-    func editPostContent() {
+    func editPostContent(completion: @escaping (APIError?) -> Void) {
         guard let token = token else {
             tap.onError(APIError.tokenExpired)
             return
@@ -52,13 +37,12 @@ class EditViewModel {
                 LoadingIndicator.shared.hideIndicator()
                 return
             }
-            self?.errorHandler(error: error)
-            
+            completion(error)
             LoadingIndicator.shared.hideIndicator()
         }
     }
     
-    func postTextContent() {
+    func postTextContent(completion: @escaping (APIError?) -> Void) {
         guard let token = token else {
             tap.onError(APIError.tokenExpired)
             return
@@ -72,7 +56,7 @@ class EditViewModel {
                 LoadingIndicator.shared.hideIndicator()
                 return
             }
-            self?.errorHandler(error: error)
+            completion(error)
             LoadingIndicator.shared.hideIndicator()
         }
     }

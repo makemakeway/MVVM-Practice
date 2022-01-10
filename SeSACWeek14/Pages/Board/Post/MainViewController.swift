@@ -49,7 +49,6 @@ class MainViewController: UIViewController {
                 cell.usernameLabel.text = element.user.username
                 cell.contentLabel.text = element.text
                 
-                //MARK: date 처리하는 부분 뷰모델에서 처리해야 할 것 같은데 엏덯게해야할지모르겟다
                 let date = DateManager.shared.stringToDate(string: element.createdAt)
                 let dateString = DateManager.shared.dateToString(date: date)
                 
@@ -68,9 +67,10 @@ class MainViewController: UIViewController {
         
         viewModel.errorObservable
             .subscribe { [weak self](error) in
-                self?.makeAlert(title: "오류", message: "토큰이 만료되었습니다. 다시 로그인 해주세요", buttonTitle: "확인", completion: { _ in
-                    self?.changeRootView(viewController: SignInViewController())
-                })
+                guard let error = error.element else {
+                    return
+                }
+                self?.APIErrorHandler(error: error, message: "댓글 불러오는 것을 실패했습니다.")
             }
             .disposed(by: disposeBag)
         

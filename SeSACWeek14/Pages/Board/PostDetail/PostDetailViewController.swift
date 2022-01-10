@@ -34,7 +34,7 @@ class PostDetailViewController: UIViewController {
                     return
                 }
                 print("삭제 실패 후 에러 핸들링")
-                print(error)
+                self.APIErrorHandler(error: error, message: "포스트 삭제에 실패했습니다.")
             }
             .disposed(by: disposeBag)
         
@@ -71,7 +71,12 @@ class PostDetailViewController: UIViewController {
                             } secondHandler: { (_) in
                                 self.deleteAlert(title: "삭제", message: "댓글을 정말 삭제하시겠어요?", buttonTitle: "삭제") { (_) in
                                     print("삭제")
-                                    self.viewModel.deleteComment(commentId: element.id, postId: element.post.id)
+                                    self.viewModel.deleteComment(commentId: element.id, postId: element.post.id) { error in
+                                        guard let error = error else {
+                                            return
+                                        }
+                                        self.APIErrorHandler(error: error, message: "댓글 삭제에 실패했습니다.")
+                                    }
                                 }
                             }
                         } else {
@@ -94,7 +99,12 @@ class PostDetailViewController: UIViewController {
                     return
                 }
                 let postId = self.viewModel.boardElement.value.id
-                self.viewModel.postComment(postId: postId)
+                self.viewModel.postComment(postId: postId) { error in
+                    guard let error = error else {
+                        return
+                    }
+                    self.APIErrorHandler(error: error, message: "댓글 추가에 실패했습니다.")
+                }
                 print("댓글 추가하고 뷰 맨 마지막으로 내리는거 해야함")
             }
             .disposed(by: disposeBag)

@@ -27,7 +27,12 @@ class EditCommentViewController: UIViewController {
             .bind { [weak self](_) in
                 guard let self = self else { return }
                 print("댓글 수정")
-                self.viewModel.editComment(commentId: self.element.id, postId: self.element.post.id)
+                self.viewModel.editComment(commentId: self.element.id, postId: self.element.post.id) { (error) in
+                    guard let error = error else {
+                        return
+                    }
+                    self.APIErrorHandler(error: error, message: "댓글 수정에 실패했습니다.")
+                }
                 self.dismiss(animated: true, completion: nil)
             }
             .disposed(by: disposeBag)

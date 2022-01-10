@@ -48,7 +48,7 @@ class PostDetailViewModel {
         APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
-                print(error!)
+                self?.commentsObservable.onError(error!)
                 return
             }
             guard let comments = element else {
@@ -59,7 +59,7 @@ class PostDetailViewModel {
         }
     }
     
-    func postComment(postId: Int) {
+    func postComment(postId: Int, completion: @escaping (APIError?) -> Void) {
         guard let token = token else {
             return
         }
@@ -68,13 +68,14 @@ class PostDetailViewModel {
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
                 print(error!)
+                completion(error!)
                 return
             }
             self?.fetchComment(postId: postId)
         }
     }
     
-    func deleteComment(commentId: Int, postId: Int) {
+    func deleteComment(commentId: Int, postId: Int, completion: @escaping (APIError?) -> Void) {
         guard let token = token else {
             return
         }
@@ -83,13 +84,14 @@ class PostDetailViewModel {
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
                 print(error!)
+                completion(error!)
                 return
             }
             self?.fetchComment(postId: postId)
         }
     }
     
-    func editComment(commentId: Int, postId: Int) {
+    func editComment(commentId: Int, postId: Int, completion: @escaping (APIError?) -> Void) {
         guard let token = token else {
             return
         }
@@ -97,6 +99,7 @@ class PostDetailViewModel {
         LoadingIndicator.shared.showIndicator()
         APIService.editComment(token: token, commentId: commentId, postId: postId, comment: editCommentText.value) { [weak self](error) in
             guard error == nil else {
+                completion(error!)
                 return
             }
             self?.fetchComment(postId: postId)

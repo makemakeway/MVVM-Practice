@@ -43,10 +43,12 @@ extension URLSession {
                         completion(userData, nil)
                         return
                     } catch {
-                        completion(nil, .invalidData)
+                        completion(nil, .noData)
                     }
+                case 400:
+                    completion(nil, .invalidData)
                 default:
-                    completion(nil, .failed)
+                    completion(nil, .invalidResponse)
                     return
                 }
             }

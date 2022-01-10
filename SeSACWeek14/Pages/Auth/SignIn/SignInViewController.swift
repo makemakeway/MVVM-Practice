@@ -22,16 +22,23 @@ class SignInViewController: UIViewController {
     //MARK: Method
     @objc func signInButtonClicked() {
         print("Clicked")
+        if mainView.emailTextField.text!.isEmpty || mainView.passwordTextField.text!.isEmpty {
+            makeAlert(title: "오류", message: "아이디와 비밀번호를 입력해주세요.", buttonTitle: "확인", completion: nil)
+            return
+        }
+        
         mainView.showSkeletonView()
         viewModel.postUserLogin { [weak self](error) in
             
-            guard error == nil else {
+            guard let error = error else {
                 self?.mainView.hideSkeleton()
+                let vc = MainViewController()
+                self?.changeRootView(viewController: vc)
                 return
             }
-            
-            let vc = MainViewController()
-            self?.changeRootView(viewController: vc)
+
+            self?.APIErrorHandler(error: error, message: "아이디와 비밀번호를 확인해주세요.")
+            self?.mainView.hideSkeleton()
         }
     }
     

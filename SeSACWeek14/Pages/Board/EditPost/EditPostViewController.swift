@@ -45,9 +45,19 @@ class EditPostViewController: UIViewController {
                 print("tap")
                 switch self?.editCase {
                 case .add:
-                    self?.viewModel.postTextContent()
+                    self?.viewModel.postTextContent { [weak self](error) in
+                        guard let error = error else {
+                            return
+                        }
+                        self?.APIErrorHandler(error: error, message: "포스트 작성에 실패했습니다.")
+                    }
                 case .edit:
-                    self?.viewModel.editPostContent()
+                    self?.viewModel.editPostContent { [weak self](error) in
+                        guard let error = error else {
+                            return
+                        }
+                        self?.APIErrorHandler(error: error, message: "포스트 수정에 실패했습니다.")
+                    }
                 case .none:
                     print("에러")
                 }
@@ -57,9 +67,10 @@ class EditPostViewController: UIViewController {
         viewModel.tap
             .subscribe { _ in
                 
-            } onError: { error in
-                let error = error as? APIError
-                print("포스트 작성 실패 핸들링")
+            } onError: { [weak self](error) in
+                if let error = error as? APIError {
+                    self?.APIErrorHandler(error: error, message: "포스트 작성에 실패했습니다.")
+                }
             } onCompleted: { [weak self] in
                 print("포스트 작성 완료")
                 self?.dismiss(animated: true, completion: nil)

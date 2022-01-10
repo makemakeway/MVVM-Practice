@@ -30,20 +30,17 @@ class SignUpViewController: UIViewController {
         mainView.showSkeletonView()
         viewModel.registerUser { [weak self] (userData, error) in
             guard let self = self else { return }
-            guard error == nil else {
-                // 여기 알럿 띄워주고
-                self.makeAlert(title: "오류", message: "회원가입에 실패했습니다.", buttonTitle: "확인", completion: nil)
-                self.mainView.hideSkeletonView()
+            if let error = error {
+                self.APIErrorHandler(error: error, message: "회원가입에 실패했습니다.")
+                self.mainView.hideSkeleton()
                 return
             }
-
             // 회원가입 성공 후 로그인
             self.viewModel.postUserLogin { error in
                 guard error == nil else {
                     self.mainView.hideSkeletonView()
                     return
                 }
-                
                 let vc = MainViewController()
                 self.changeRootView(viewController: vc)
             }

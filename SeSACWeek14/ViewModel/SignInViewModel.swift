@@ -13,12 +13,10 @@ class SignInViewModel {
     var email = BehaviorRelay(value: "")
     var password = BehaviorRelay(value: "")
     
-    
     func postUserLogin(completion: @escaping (APIError?) -> Void) {
         APIService.login(identifier: email.value,
                          password: password.value) { userData, error in
             guard let userData = userData else {
-                print("no data")
                 completion(error)
                 return
             }

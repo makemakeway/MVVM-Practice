@@ -37,4 +37,15 @@ extension UIViewController {
             windowScene.windows.first?.makeKeyAndVisible()
         }
     }
+    
+    func APIErrorHandler(error: APIError, message: String) {
+        switch error {
+        case .tokenExpired:
+            makeAlert(title: "오류", message: "토큰이 만료되었습니다.\n다시 로그인 해주세요.", buttonTitle: "확인") { [weak self](_) in
+                self?.changeRootView(viewController: SignInViewController())
+            }
+        default:
+            makeAlert(title: "오류", message: message, buttonTitle: "확인", completion: nil)
+        }
+    }
 }
