@@ -151,4 +151,12 @@ class APIService {
         
         URLSession.request(endPoint: request, completion: completion)
     }
+    
+    static func fetchPostCount(token: String, completion: @escaping (Int?, APIError?) -> Void) {
+        let url = EndPoint.postCount.url
+        var request = URLRequest(url: url)
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.request(endPoint: request, completion: completion)
+    }
 }

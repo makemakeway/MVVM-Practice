@@ -11,6 +11,7 @@ import RxSwift
 class BoardViewModel {
     var boardViewModel: PublishSubject<Board> = PublishSubject()
     var errorObservable: PublishSubject<APIError> = PublishSubject()
+    var postCount = PublishSubject<Int>()
     var board: Board?
     
     let token = UserDefaults.standard.string(forKey: "token")
@@ -32,6 +33,22 @@ class BoardViewModel {
             
             self?.boardViewModel.onNext(board)
             LoadingIndicator.shared.hideIndicator()
+        }
+    }
+    
+    func fetchPostCount(errorHandler: @escaping (APIError?) -> Void) {
+        guard let token = token else {
+            return
+        }
+        APIService.fetchPostCount(token: token) { [weak self](count, error) in
+            guard error == nil else {
+                errorHandler(error!)
+                return
+            }
+            guard let count = count else {
+                return
+            }
+            self?.postCount.onNext(count)
         }
     }
 }

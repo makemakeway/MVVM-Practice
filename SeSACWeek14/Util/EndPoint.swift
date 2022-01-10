@@ -15,6 +15,7 @@ enum EndPoint {
     case changePassword
     case fetchComment
     case commentDetail(id: Int)
+    case postCount
 }
 
 
@@ -35,6 +36,8 @@ extension EndPoint {
             return .makeEndPoint("comments")
         case .commentDetail(let id):
             return .makeEndPoint("comments/\(id)")
+        case .postCount:
+            return .makeEndPoint("posts/count")
         }
     }
 }

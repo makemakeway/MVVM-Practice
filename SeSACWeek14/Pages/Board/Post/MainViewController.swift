@@ -91,7 +91,9 @@ class MainViewController: UIViewController {
         bind()
         
         viewModel.fetchBoard()
-        
+        APIService.fetchPostCount(token: UserDefaults.standard.string(forKey: "token")!) { (count, error) in
+            print(count, error)
+        }
         print(UserDefaults.standard.string(forKey: "token"))
     }
 }

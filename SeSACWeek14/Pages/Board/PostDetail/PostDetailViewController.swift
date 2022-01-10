@@ -58,12 +58,12 @@ class PostDetailViewController: UIViewController {
                 cell.usernameLabel.text = "\(element.user.username)"
                 cell.commentContentLabel.text = element.comment
                 cell.selectionStyle = .none
-                
+
                 //MARK: 메모리 누수 발생
                 cell.commentInfoButton.rx.tap
                     .bind { (_) in
                         if self.isCurrentUser(element: element) {
-                            print("내 댓글이당!")
+                            print("내 댓글")
                             self.makeActionSheet { (_) in
                                 print("수정")
                                 let vc = EditCommentViewController(viewModel: self.viewModel, element: element)
@@ -86,6 +86,16 @@ class PostDetailViewController: UIViewController {
                     .disposed(by: cell.disposeBag)
             }
             .disposed(by: disposeBag)
+        
+        viewModel.fetchObservable
+            .subscribe { [weak self]error in
+                guard let error = error.element else {
+                    return
+                }
+                self?.APIErrorHandler(error: error, message: "정보 받아오기에 실패했습니다.")
+            }
+            .disposed(by: disposeBag)
+
         
         mainView.footerView.textField.rx.text.orEmpty
             .bind(to: viewModel.commentText)
