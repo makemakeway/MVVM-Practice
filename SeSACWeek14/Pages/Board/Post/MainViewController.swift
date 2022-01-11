@@ -13,15 +13,18 @@ class MainViewController: UIViewController {
     
     //MARK: Properties
     let viewModel = BoardViewModel()
-    
     let disposeBag = DisposeBag()
+    
+    var start = 1
+    var limit = 0
+    var counts = 0
     
     //MARK: UI
     let mainView = BoardView()
     
     //MARK: Method
     
-    @objc func addPostButtonClicked(_ sender: UIButton) {
+    func addPostButtonClicked() {
         let vc = EditPostViewController()
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
@@ -74,7 +77,10 @@ class MainViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        mainView.addPostButton.addTarget(self, action: #selector(addPostButtonClicked(_:)), for: .touchUpInside)
+        mainView.addPostButton.rx.tap
+            .bind { [weak self](_) in
+                self?.addPostButtonClicked()
+            }
     }
     
     //MARK: LifeCycle
@@ -90,10 +96,13 @@ class MainViewController: UIViewController {
         mainView.tableView.rowHeight = UITableView.automaticDimension
         bind()
         
-        viewModel.fetchBoard()
-        APIService.fetchPostCount(token: UserDefaults.standard.string(forKey: "token")!) { (count, error) in
-            print(count, error)
+        viewModel.fetchBoard(start: 1, limit: 10)
+        APIService.fetchPostCount(token: UserDefaults.standard.string(forKey: "token")!) { [weak self](count, error) in
+            guard let count = count else {
+                return
+            }
+            self?.counts = count
         }
-        print(UserDefaults.standard.string(forKey: "token"))
+        print(UserDefaults.standard.string(forKey: "token")!)
     }
 }

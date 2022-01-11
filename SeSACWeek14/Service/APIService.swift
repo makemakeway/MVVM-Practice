@@ -67,11 +67,21 @@ class APIService {
         }.resume()
     }
     
-    static func fetchPost(token: String, completion: @escaping (Board?, APIError?) -> Void) {
-        let url = EndPoint.boards.url
-        var request = URLRequest(url: url)
+    static func fetchPost(token: String, start: Int, limit: Int, completion: @escaping (Board?, APIError?) -> Void) {
+        let urlString = "http://test.monocoding.com:1231/posts"
+        var component = URLComponents(string: urlString)
+        
+        let order = URLQueryItem(name: "_sort", value: "created_at:desc")
+        let start = URLQueryItem(name: "_start", value: "\(start)")
+        let limit = URLQueryItem(name: "_limit", value: "\(limit)")
+        component?.queryItems = [order, start, limit]
+        
+        let url = component?.url
+        
+        var request = URLRequest(url: url!)
         request.httpMethod = "GET"
         request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        
         
         URLSession.request(endPoint: request, completion: completion)
     }

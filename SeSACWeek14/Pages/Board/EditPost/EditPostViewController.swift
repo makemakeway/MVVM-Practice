@@ -96,7 +96,7 @@ class EditPostViewController: UIViewController {
         case .add:
             let nav = self.presentingViewController as! UINavigationController
             let preVC = nav.topViewController as! MainViewController
-            preVC.viewModel.fetchBoard()
+            preVC.viewModel.fetchBoard(start: 1, limit: 10)
         case .edit:
             let nav = self.presentingViewController as! UINavigationController
             let preVC = nav.topViewController as! PostDetailViewController

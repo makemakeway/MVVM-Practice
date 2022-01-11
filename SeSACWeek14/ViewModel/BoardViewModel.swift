@@ -16,13 +16,13 @@ class BoardViewModel {
     
     let token = UserDefaults.standard.string(forKey: "token")
     
-    func fetchBoard() {
+    func fetchBoard(start: Int, limit: Int) {
         guard let token = token else {
             return
         }
         LoadingIndicator.shared.showIndicator()
         
-        APIService.fetchPost(token: token) { [weak self](board, error) in
+        APIService.fetchPost(token: token, start: start, limit: limit) { [weak self](board, error) in
             guard error == nil else {
                 self?.errorObservable.onNext(error!)
                 print(error!)

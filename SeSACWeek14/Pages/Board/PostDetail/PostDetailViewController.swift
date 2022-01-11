@@ -149,7 +149,7 @@ class PostDetailViewController: UIViewController {
     func pushDataAtPreviousVC() {
         let i = self.navigationController?.viewControllers.firstIndex(of: self)
         let previousViewController = self.navigationController?.viewControllers[i!-1] as! MainViewController
-        previousViewController.viewModel.fetchBoard()
+        previousViewController.viewModel.fetchBoard(start: 1, limit: 10)
     }
     
     func navigationBarConfig() {
