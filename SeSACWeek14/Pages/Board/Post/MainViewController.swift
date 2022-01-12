@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     let disposeBag = DisposeBag()
     
     var start = 1
-    var limit = 0
+    var limit = 20
     var counts = 0
     
     //MARK: UI
@@ -81,6 +81,35 @@ class MainViewController: UIViewController {
             .bind { [weak self](_) in
                 self?.addPostButtonClicked()
             }
+            .disposed(by: disposeBag)
+        
+        mainView.tableView.rx.didScroll
+            .debounce(.milliseconds(50), scheduler: ConcurrentMainScheduler.instance)
+            .subscribe { [weak self](_) in
+                guard let self = self else { return }
+                if self.limit == self.counts {
+                    return
+                }
+                
+                let offsetY = self.mainView.tableView.contentOffset.y
+                let contentHeight = self.mainView.tableView.contentSize.height
+                let currentLimit = self.limit
+                var nextLimit = 0
+                
+                if currentLimit + 20 <= self.counts {
+                    nextLimit = 20
+                } else {
+                    nextLimit = currentLimit + 20 - self.counts
+                }
+                
+                if offsetY > (contentHeight - self.mainView.tableView.frame.size.height - 100) && self.limit < self.counts {
+                    self.viewModel.fetchBoard(start: currentLimit, limit: nextLimit)
+                    self.limit = currentLimit + nextLimit
+                }
+            }
+            .disposed(by: disposeBag)
+            
+
     }
     
     //MARK: LifeCycle
@@ -96,7 +125,7 @@ class MainViewController: UIViewController {
         mainView.tableView.rowHeight = UITableView.automaticDimension
         bind()
         
-        viewModel.fetchBoard(start: 1, limit: 10)
+        viewModel.fetchBoard(start: 0, limit: limit)
         APIService.fetchPostCount(token: UserDefaults.standard.string(forKey: "token")!) { [weak self](count, error) in
             guard let count = count else {
                 return

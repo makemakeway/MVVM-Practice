@@ -7,12 +7,13 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
 class BoardViewModel {
-    var boardViewModel: PublishSubject<Board> = PublishSubject()
+    var boardViewModel: PublishRelay<Board> = PublishRelay()
     var errorObservable: PublishSubject<APIError> = PublishSubject()
     var postCount = PublishSubject<Int>()
-    var board: Board?
+    var board: Board = []
     
     let token = UserDefaults.standard.string(forKey: "token")
     
@@ -23,15 +24,16 @@ class BoardViewModel {
         LoadingIndicator.shared.showIndicator()
         
         APIService.fetchPost(token: token, start: start, limit: limit) { [weak self](board, error) in
+            guard let self = self else { return }
             guard error == nil else {
-                self?.errorObservable.onNext(error!)
+                self.errorObservable.onNext(error!)
                 print(error!)
                 return
             }
             guard let board = board else { return }
-            self?.board = board
+            self.board += board
             
-            self?.boardViewModel.onNext(board)
+            self.boardViewModel.accept(self.board)
             LoadingIndicator.shared.hideIndicator()
         }
     }

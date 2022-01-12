@@ -111,6 +111,7 @@ class PostDetailViewController: UIViewController {
                 let postId = self.viewModel.boardElement.value.id
                 self.viewModel.postComment(postId: postId) { error in
                     guard let error = error else {
+                        self.mainView.tableView.scroll
                         return
                     }
                     self.APIErrorHandler(error: error, message: "댓글 추가에 실패했습니다.")
