@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     //MARK: Properties
     let viewModel = BoardViewModel()
     let disposeBag = DisposeBag()
+    let token = UserDefaults.standard.string(forKey: "token")
     
     var start = 1
     var limit = 20
@@ -109,6 +110,22 @@ class MainViewController: UIViewController {
             }
             .disposed(by: disposeBag)
             
+        let refreshControl = UIRefreshControl()
+        mainView.tableView.refreshControl = refreshControl
+        
+        refreshControl.rx.controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                APIService.fetchPost(token: self.token!, start: 0, limit: 20) { (board, error) in
+                    guard let error = error else {
+                        self.viewModel.boardViewModel.accept(board!)
+                        self.mainView.tableView.refreshControl?.endRefreshing()
+                        return
+                    }
+                    self.APIErrorHandler(error: error, message: "포스트 갱신에 실패했습니다.")
+                }
+            })
+            .disposed(by: disposeBag)
 
     }
     
@@ -132,6 +149,6 @@ class MainViewController: UIViewController {
             }
             self?.counts = count
         }
-        print(UserDefaults.standard.string(forKey: "token")!)
+        print(token!)
     }
 }

@@ -53,15 +53,13 @@ class PostDetailViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.commentsObservable
-            .bind(to: mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.reuseIdentifier, cellType: CommentTableViewCell.self)) { [weak self](row, element, cell) in
-                guard let self = self else { return }
+            .bind(to: mainView.tableView.rx.items(cellIdentifier: CommentTableViewCell.reuseIdentifier, cellType: CommentTableViewCell.self)) { (row, element, cell) in
                 cell.usernameLabel.text = "\(element.user.username)"
                 cell.commentContentLabel.text = element.comment
                 cell.selectionStyle = .none
-
-                //MARK: 메모리 누수 발생
                 cell.commentInfoButton.rx.tap
-                    .bind { (_) in
+                    .bind { [weak self](_) in
+                        guard let self = self else { return }
                         if self.isCurrentUser(element: element) {
                             print("내 댓글")
                             self.makeActionSheet { (_) in
@@ -87,7 +85,7 @@ class PostDetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.fetchObservable
+        viewModel.fetchCommentObservable
             .subscribe { [weak self]error in
                 guard let error = error.element else {
                     return
@@ -95,7 +93,13 @@ class PostDetailViewController: UIViewController {
                 self?.APIErrorHandler(error: error, message: "정보 받아오기에 실패했습니다.")
             }
             .disposed(by: disposeBag)
-
+        
+        viewModel.fetchPostObservable
+            .subscribe { [weak self](error) in
+                guard let error = error.element else { return }
+                self?.APIErrorHandler(error: error, message: "포스트 받아오기에 실패했습니다.")
+            }
+            .disposed(by: disposeBag)
         
         mainView.footerView.textField.rx.text.orEmpty
             .bind(to: viewModel.commentText)
@@ -108,15 +112,16 @@ class PostDetailViewController: UIViewController {
                     self.makeAlert(title: "오류", message: "댓글을 입력해주세요.", buttonTitle: "확인", completion: nil)
                     return
                 }
-                let postId = self.viewModel.boardElement.value.id
-                self.viewModel.postComment(postId: postId) { error in
-                    guard let error = error else {
-                        self.mainView.tableView.scroll
-                        return
+                self.viewModel.postComment(completion: { error in
+                    if let error = error {
+                        self.APIErrorHandler(error: error, message: "댓글 추가에 실패했습니다.")
                     }
-                    self.APIErrorHandler(error: error, message: "댓글 추가에 실패했습니다.")
-                }
-                print("댓글 추가하고 뷰 맨 마지막으로 내리는거 해야함")
+                    self.viewModel.fetchPost()
+                    self.viewModel.fetchComment() {
+                        self.mainView.tableView.scrollToRow(at: IndexPath(row: self.viewModel.boardElement.value.comments.count - 1, section: 0), at: .bottom, animated: true)
+                    }
+                    return
+                })
             }
             .disposed(by: disposeBag)
     }

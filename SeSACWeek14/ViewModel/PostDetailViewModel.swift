@@ -16,14 +16,31 @@ class PostDetailViewModel {
     var commentText = BehaviorRelay(value: "")
     var deleteObservable = PublishSubject<APIError?>()
     var editCommentText = BehaviorRelay(value: "")
-    var fetchObservable = PublishSubject<APIError>()
+    var fetchCommentObservable = PublishSubject<APIError>()
+    var fetchPostObservable = PublishSubject<APIError>()
     
     
     let token = UserDefaults.standard.string(forKey: "token")
     
+    func fetchPost() {
+        guard let token = token else {
+            return
+        }
+        let postId = boardElement.value.id
+        LoadingIndicator.shared.showIndicator()
+        APIService.fetchDetailPost(token: token, postId: postId) { [weak self](element, error) in
+            guard let self = self else { return }
+            guard let error = error else {
+                self.boardElement.accept(element!)
+                return
+            }
+            self.fetchPostObservable.onNext(error)
+        }
+        
+    }
+    
     func deletePost() {
         guard let token = token else {
-            print("토큰 만료처리")
             return
         }
         let postId = boardElement.value.id
@@ -41,15 +58,17 @@ class PostDetailViewModel {
         }
     }
     
-    func fetchComment(postId: Int) {
+    func fetchComment() {
         guard let token = token else {
             return
         }
+        let postId = boardElement.value.id
+        
         LoadingIndicator.shared.showIndicator()
         APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
-                self?.fetchObservable.onNext(error!)
+                self?.fetchCommentObservable.onNext(error!)
                 return
             }
             guard let comments = element else {
@@ -60,19 +79,43 @@ class PostDetailViewModel {
         }
     }
     
-    func postComment(postId: Int, completion: @escaping (APIError?) -> Void) {
+    func fetchComment(completion: @escaping () -> Void) {
         guard let token = token else {
             return
         }
+        let postId = boardElement.value.id
+        
         LoadingIndicator.shared.showIndicator()
-        APIService.addComment(token: token, postId: postId, comment: commentText.value) { [weak self](value, error) in
+        APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
+            LoadingIndicator.shared.hideIndicator()
+            guard error == nil else {
+                self?.fetchCommentObservable.onNext(error!)
+                return
+            }
+            guard let comments = element else {
+                return
+            }
+            self?.commentsObservable
+                .onNext(comments)
+            completion()
+        }
+    }
+    
+    func postComment(completion: @escaping (APIError?) -> Void) {
+        guard let token = token else {
+            return
+        }
+        let postId = boardElement.value.id
+        
+        LoadingIndicator.shared.showIndicator()
+        APIService.addComment(token: token, postId: postId, comment: commentText.value) { (value, error) in
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
                 print(error!)
                 completion(error!)
                 return
             }
-            self?.fetchComment(postId: postId)
+            completion(nil)
         }
     }
     
@@ -88,7 +131,7 @@ class PostDetailViewModel {
                 completion(error!)
                 return
             }
-            self?.fetchComment(postId: postId)
+            self?.fetchComment()
         }
     }
     
@@ -103,12 +146,13 @@ class PostDetailViewModel {
                 completion(error!)
                 return
             }
-            self?.fetchComment(postId: postId)
+            self?.fetchComment()
         }
     }
     
     init(element: BoardElement) {
         self.boardElement = BehaviorRelay(value: element)
-        fetchComment(postId: element.id)
+        fetchPost()
+        fetchComment()
     }
 }

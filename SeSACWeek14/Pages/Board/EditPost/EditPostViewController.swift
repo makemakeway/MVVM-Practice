@@ -72,36 +72,27 @@ class EditPostViewController: UIViewController {
                     self?.APIErrorHandler(error: error, message: "포스트 작성에 실패했습니다.")
                 }
             } onCompleted: { [weak self] in
-                print("포스트 작성 완료")
-                self?.dismiss(animated: true, completion: nil)
-            }
-            .disposed(by: disposeBag)
-        
-        viewModel.element
-            .subscribe { [weak self](element) in
-                self?.dataPushAtPresentingVC(element: element)
-            }
-            .disposed(by: disposeBag)
-        
-        mainView.textView.rx.contentOffset
-            .map { $0.y }
-            .bind { [weak self](offset) in
-                print(offset)
+                self?.dataPushAtPresentingVC()
             }
             .disposed(by: disposeBag)
     }
     
-    func dataPushAtPresentingVC(element: BoardElement) {
+    func dataPushAtPresentingVC() {
         switch editCase {
         case .add:
             let nav = self.presentingViewController as! UINavigationController
             let preVC = nav.topViewController as! MainViewController
-            preVC.viewModel.fetchBoard(start: 0, limit: 10)
+            self.dismiss(animated: true) {
+                preVC.viewModel.fetchBoard()
+                preVC.mainView.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }
         case .edit:
             let nav = self.presentingViewController as! UINavigationController
             let preVC = nav.topViewController as! PostDetailViewController
-            preVC.viewModel.boardElement
-                .accept(element)
+            self.dismiss(animated: true) {
+                preVC.viewModel.fetchPost()
+                preVC.viewModel.fetchComment()
+            }
         }
     }
     

@@ -86,6 +86,16 @@ class APIService {
         URLSession.request(endPoint: request, completion: completion)
     }
     
+    static func fetchDetailPost(token: String, postId: Int, completion: @escaping (BoardElement?, APIError?) -> Void) {
+        let url = EndPoint.boardDetail(id: postId).url
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("bearer \(token)", forHTTPHeaderField: "Authorization")
+        
+        URLSession.request(endPoint: request, completion: completion)
+    }
+    
     static func addPost(token: String, text: String, completion: @escaping (APIError?) -> Void) {
         let url = EndPoint.boards.url
         var request = URLRequest(url: url)
