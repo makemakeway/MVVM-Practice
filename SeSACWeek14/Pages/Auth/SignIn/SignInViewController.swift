@@ -13,7 +13,7 @@ class SignInViewController: UIViewController {
 
     //MARK: Properties
     var viewModel = SignInViewModel()
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     //MARK: UI
     let mainView = SignInView()

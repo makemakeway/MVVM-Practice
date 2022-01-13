@@ -14,7 +14,7 @@ class ChangePasswordViewController: UIViewController {
     
     let viewModel = ChangePasswordViewModel()
     
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     //MARK: UI
     
@@ -77,5 +77,10 @@ class ChangePasswordViewController: UIViewController {
         super.viewDidLoad()
         
         bind()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeBag = DisposeBag()
     }
 }

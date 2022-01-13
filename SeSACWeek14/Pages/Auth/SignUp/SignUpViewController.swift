@@ -13,7 +13,7 @@ class SignUpViewController: UIViewController {
     //MARK: Properties
     
     let viewModel = SignUpViewModel()
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     
     //MARK: UI
     let mainView = SignUpView()
@@ -83,5 +83,10 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         bind()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeBag = DisposeBag()
     }
 }

@@ -13,7 +13,7 @@ class MainViewController: UIViewController {
     
     //MARK: Properties
     let viewModel = BoardViewModel()
-    let disposeBag = DisposeBag()
+    var disposeBag = DisposeBag()
     let token = UserDefaults.standard.string(forKey: "token")
     
     var start = 0

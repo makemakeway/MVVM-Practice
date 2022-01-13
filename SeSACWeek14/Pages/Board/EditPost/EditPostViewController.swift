@@ -15,11 +15,12 @@ enum EditCase {
     case edit
 }
 
+//MARK: 메모리 누수 확인
 class EditPostViewController: UIViewController {
     //MARK: Properties
     
-    let viewModel = EditViewModel()
-    let disposeBag = DisposeBag()
+    var viewModel = EditViewModel()
+    var disposeBag = DisposeBag()
     var editCase: EditCase = .add
     
     //MARK: UI
@@ -37,36 +38,36 @@ class EditPostViewController: UIViewController {
             .bind { [weak self](_) in
                 print("tap")
                 self?.dismiss(animated: true, completion: nil)
+                //MARK: Post Detail로 빠져나가는 경우 댓글이 사라지는 버그
             }
             .disposed(by: disposeBag)
         
         mainView.confirmButton.rx.tap
             .bind { [weak self](_) in
+                guard let self = self else { return }
                 print("tap")
-                switch self?.editCase {
+                switch self.editCase {
                 case .add:
-                    self?.viewModel.postTextContent { [weak self](error) in
+                    self.viewModel.postTextContent { [weak self](error) in
                         guard let error = error else {
                             return
                         }
                         self?.APIErrorHandler(error: error, message: "포스트 작성에 실패했습니다.")
                     }
                 case .edit:
-                    self?.viewModel.editPostContent { [weak self](error) in
+                    self.viewModel.editPostContent { [weak self](error) in
                         guard let error = error else {
                             return
                         }
                         self?.APIErrorHandler(error: error, message: "포스트 수정에 실패했습니다.")
                     }
-                case .none:
-                    print("에러")
                 }
             }
             .disposed(by: disposeBag)
 
         viewModel.tap
             .subscribe { _ in
-                
+
             } onError: { [weak self](error) in
                 if let error = error as? APIError {
                     self?.APIErrorHandler(error: error, message: "포스트 작성에 실패했습니다.")
@@ -80,16 +81,16 @@ class EditPostViewController: UIViewController {
     func dataPushAtPresentingVC() {
         switch editCase {
         case .add:
-            let nav = self.presentingViewController as! UINavigationController
+            let nav = presentingViewController as! UINavigationController
             let preVC = nav.topViewController as! MainViewController
-            self.dismiss(animated: true) {
+            dismiss(animated: true) {
                 preVC.viewModel.fetchBoard()
                 preVC.mainView.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }
         case .edit:
-            let nav = self.presentingViewController as! UINavigationController
+            let nav = presentingViewController as! UINavigationController
             let preVC = nav.topViewController as! PostDetailViewController
-            self.dismiss(animated: true) {
+            dismiss(animated: true) {
                 preVC.viewModel.fetchPost()
                 preVC.viewModel.fetchComment()
             }
@@ -116,6 +117,11 @@ class EditPostViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainView.textView.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        disposeBag = DisposeBag()
     }
 }
 

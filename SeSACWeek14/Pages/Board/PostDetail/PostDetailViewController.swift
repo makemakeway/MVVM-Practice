@@ -19,6 +19,7 @@ class PostDetailViewController: UIViewController {
     
     //MARK: UI
     let mainView = PostDetailView()
+    let refreshControl = UIRefreshControl()
     
     
     //MARK: Method
@@ -127,7 +128,6 @@ class PostDetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        let refreshControl = UIRefreshControl()
         mainView.tableView.refreshControl = refreshControl
         
         refreshControl.rx.controlEvent(.valueChanged)
@@ -247,19 +247,17 @@ class PostDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarConfig()
-        bind()
-        mainView.tableView.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isOpaque = false
+        bind()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.navigationController?.navigationBar.isOpaque = true
         disposeBag = DisposeBag()
+        print("disappear")
     }
     
     override func viewDidLayoutSubviews() {
@@ -290,14 +288,6 @@ class PostDetailViewController: UIViewController {
     }
 }
 
-extension PostDetailViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CommentTableViewCell.reuseIdentifier, for: indexPath) as? CommentTableViewCell else {
-            return
-        }
-        cell.disposeBag = DisposeBag()
-    }
-}
 
 extension PostDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
