@@ -160,4 +160,8 @@ class PostDetailViewModel {
         fetchPost()
         fetchComment()
     }
+    
+    deinit {
+        print("===Post Detail VM Deinit===")
+    }
 }

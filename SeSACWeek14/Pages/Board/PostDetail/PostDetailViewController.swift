@@ -64,14 +64,18 @@ class PostDetailViewController: UIViewController {
                         guard let self = self else { return }
                         if self.isCurrentUser(element: element) {
                             print("내 댓글")
-                            self.makeActionSheet { (_) in
+                            self.makeActionSheet { [weak self](_) in
+                                guard let self = self else { return }
                                 print("수정")
                                 let vc = EditCommentViewController(viewModel: self.viewModel, element: element)
                                 self.present(vc, animated: true, completion: nil)
-                            } secondHandler: { (_) in
-                                self.deleteAlert(title: "삭제", message: "댓글을 정말 삭제하시겠어요?", buttonTitle: "삭제") { (_) in
+                            } secondHandler: { [weak self](_) in
+                                guard let self = self else { return }
+                                self.deleteAlert(title: "삭제", message: "댓글을 정말 삭제하시겠어요?", buttonTitle: "삭제") { [weak self](_) in
+                                    guard let self = self else { return }
                                     print("삭제")
-                                    self.viewModel.deleteComment(commentId: element.id, postId: element.post.id) { error in
+                                    self.viewModel.deleteComment(commentId: element.id, postId: element.post.id) { [weak self](error) in
+                                        guard let self = self else { return }
                                         guard let error = error else {
                                             return
                                         }
@@ -114,13 +118,15 @@ class PostDetailViewController: UIViewController {
                     self.makeAlert(title: "오류", message: "댓글을 입력해주세요.", buttonTitle: "확인", completion: nil)
                     return
                 }
-                self.viewModel.postComment(completion: { error in
+                self.viewModel.postComment(completion: { [weak self](error) in
+                    guard let self = self else { return }
                     if let error = error {
                         self.APIErrorHandler(error: error, message: "댓글 추가에 실패했습니다.")
                     }
                     self.mainView.footerView.textField.text = ""
                     self.viewModel.fetchPost()
-                    self.viewModel.fetchComment() {
+                    self.viewModel.fetchComment() { [weak self] in
+                        guard let self = self else { return }
                         self.mainView.tableView.scrollToRow(at: IndexPath(row: self.viewModel.boardElement.value.comments.count - 1, section: 0), at: .bottom, animated: true)
                     }
                     return

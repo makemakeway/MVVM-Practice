@@ -23,8 +23,9 @@ class BoardViewModel {
     
     let token = UserDefaults.standard.string(forKey: "token")
     
-    //MARK: 페이지네이션용
-    func fetchBoard(start: Int, limit: Int) {
+    //MARK: 페이지네이션, 새로고침용
+    func fetchBoard(start: Int, limit: Int, refresh: Bool = false) {
+        
         guard let token = token else {
             return
         }
@@ -38,12 +39,16 @@ class BoardViewModel {
                 return
             }
             guard let board = board else { return }
-            self.board += board
+            
+            refresh == true ? (self.board = board) : (self.board += board)
             
             self.boardViewModel.accept(self.board)
             LoadingIndicator.shared.hideIndicator()
         }
     }
+    
+    //MARK: 새로고침용
+    
     
     func fetchBoard() {
         guard let token = token else {
@@ -79,10 +84,13 @@ class BoardViewModel {
                 return
             }
             self?.postCount.onNext(count)
+            errorHandler(nil)
         }
     }
     
     deinit {
         disposeBag = DisposeBag()
+        
+        print("===Board UP VM Deinit===")
     }
 }

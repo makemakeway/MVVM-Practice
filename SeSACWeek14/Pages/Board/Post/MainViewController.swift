@@ -120,18 +120,13 @@ class MainViewController: UIViewController {
         refreshControl.rx.controlEvent(.valueChanged)
             .subscribe(onNext: { [weak self] in
                 guard let self = self else { return }
-                APIService.fetchPost(token: self.token!, start: 0, limit: 20) { (board, error) in
-                    guard let error = error else {
-                        self.viewModel.boardViewModel.accept(board!)
-                        self.viewModel.fetchPostCount { (error) in
-                            if let error = error {
-                                self.APIErrorHandler(error: error, message: "포스트 정보를 받아오는 것을 실패했습니다.")
-                            }
-                        }
-                        self.mainView.tableView.refreshControl?.endRefreshing()
-                        return
+                self.viewModel.fetchBoard(start: 0, limit: 20, refresh: true)
+                self.viewModel.fetchPostCount { [weak self](error) in
+                    guard let self = self else { return }
+                    if let error = error {
+                        self.APIErrorHandler(error: error, message: "포스트 갱신에 실패했습니다.")
                     }
-                    self.APIErrorHandler(error: error, message: "포스트 갱신에 실패했습니다.")
+                    self.mainView.tableView.refreshControl?.endRefreshing()
                 }
             })
             .disposed(by: disposeBag)

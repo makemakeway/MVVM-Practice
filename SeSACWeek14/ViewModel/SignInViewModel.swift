@@ -30,4 +30,8 @@ class SignInViewModel {
             completion(nil)
         }
     }
+    
+    deinit {
+        print("===Sign IN VM Deinit===")
+    }
 }

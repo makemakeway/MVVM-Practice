@@ -61,6 +61,9 @@ class EditViewModel {
         }
     }
     
+    deinit {
+        print("===Edit VM Deinit===")
+    }
 
     
 }

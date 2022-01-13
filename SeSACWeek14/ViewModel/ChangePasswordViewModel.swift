@@ -27,7 +27,7 @@ class ChangePasswordViewModel {
     func textFieldValidationUpdate() {
     }
     
-    init() {
-        
+    deinit {
+        print("===ChangePasswordViewModel VM Deinit===")
     }
 }

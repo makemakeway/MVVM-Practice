@@ -45,4 +45,8 @@ class SignUpViewModel {
             completion(nil)
         }
     }
+    
+    deinit {
+        print("===Sign UP VM Deinit===")
+    }
 }
