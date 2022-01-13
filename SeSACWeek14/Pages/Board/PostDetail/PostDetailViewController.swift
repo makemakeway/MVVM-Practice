@@ -41,6 +41,7 @@ class PostDetailViewController: UIViewController {
         viewModel.boardElement
             .bind { [weak self](element) in
                 guard let self = self else { return }
+                print(element)
                 self.mainView.headerView.contentLabel.text = element.text
                 self.mainView.headerView.commentLabel.text = "댓글 \(element.comments.count)"
                 self.mainView.headerView.profileNameLabel.text = element.user.username
@@ -85,7 +86,7 @@ class PostDetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        viewModel.fetchCommentObservable
+        viewModel.fetchCommentErrorObservable
             .subscribe { [weak self]error in
                 guard let error = error.element else {
                     return
@@ -116,6 +117,7 @@ class PostDetailViewController: UIViewController {
                     if let error = error {
                         self.APIErrorHandler(error: error, message: "댓글 추가에 실패했습니다.")
                     }
+                    self.mainView.footerView.textField.text = ""
                     self.viewModel.fetchPost()
                     self.viewModel.fetchComment() {
                         self.mainView.tableView.scrollToRow(at: IndexPath(row: self.viewModel.boardElement.value.comments.count - 1, section: 0), at: .bottom, animated: true)
@@ -124,6 +126,20 @@ class PostDetailViewController: UIViewController {
                 })
             }
             .disposed(by: disposeBag)
+        
+        let refreshControl = UIRefreshControl()
+        mainView.tableView.refreshControl = refreshControl
+        
+        refreshControl.rx.controlEvent(.valueChanged)
+            .subscribe(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.viewModel.fetchPost()
+                self.viewModel.fetchComment()
+                
+                self.mainView.tableView.refreshControl?.endRefreshing()
+            }) 
+            .disposed(by: disposeBag)
+
     }
     
     func isCurrentUser(element: CommentDetail) -> Bool {

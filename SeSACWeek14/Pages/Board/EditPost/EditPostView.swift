@@ -68,7 +68,7 @@ class EditPostView: UIView, ViewRepresentable {
             make.top.equalTo(navBar.snp.bottom)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalTo(safeAreaLayoutGuide).offset(-20)
+            make.height.equalTo(UIScreen.main.bounds.height * 0.5)
         }
     }
     

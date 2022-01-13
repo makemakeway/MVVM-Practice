@@ -116,12 +116,6 @@ class EditPostViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         mainView.textView.becomeFirstResponder()
-        IQKeyboardManager.shared.enable = false
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        IQKeyboardManager.shared.enable = true
     }
 }
 

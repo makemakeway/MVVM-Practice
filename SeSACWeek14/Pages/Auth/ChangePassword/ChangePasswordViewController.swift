@@ -24,6 +24,10 @@ class ChangePasswordViewController: UIViewController {
     
     @objc func changeButtonClicked(_ sender: UIButton) {
         print("Change")
+        if mainView.newPasswordTextField.text!.isEmpty {
+            
+        }
+        
         viewModel.changePassword { [weak self](error) in
             guard let self = self else { return }
             
@@ -31,7 +35,6 @@ class ChangePasswordViewController: UIViewController {
                 self.makeAlert(title: "성공", message: "비밀번호 변경 완료", buttonTitle: "확인", completion: nil)
                 return
             }
-            
             switch error {
             case .tokenExpired:
                 self.makeAlert(title: "오류", message: "토큰이 만료되었습니다.\n로그인 후 다시 시도해주세요.", buttonTitle: "확인") { _ in

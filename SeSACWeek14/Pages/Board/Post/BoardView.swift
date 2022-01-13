@@ -12,6 +12,7 @@ class BoardView: UIView, ViewRepresentable {
     
     let tableView = UITableView()
     let addPostButton = UIButton()
+    let changePasswordButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,6 +32,9 @@ class BoardView: UIView, ViewRepresentable {
         addPostButton.tintColor = .white
         addPostButton.setImage(UIImage(systemName: "plus"), for: .normal)
         addPostButton.layer.cornerRadius = 22
+        
+        changePasswordButton.tintColor = .label
+        changePasswordButton.setImage(UIImage(systemName: "person"), for: .normal)
     }
     
     func setUpConstraints() {
@@ -41,6 +45,10 @@ class BoardView: UIView, ViewRepresentable {
             make.bottom.equalTo(self.safeAreaLayoutGuide).offset(-20)
             make.trailing.equalToSuperview().offset(-20)
             make.width.height.equalTo(44)
+        }
+        
+        changePasswordButton.snp.makeConstraints { make in
+            make.size.equalTo(44)
         }
     }
     

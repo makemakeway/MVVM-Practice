@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     let disposeBag = DisposeBag()
     let token = UserDefaults.standard.string(forKey: "token")
     
-    var start = 1
+    var start = 0
     var limit = 20
     var counts = 0
     
@@ -24,6 +24,10 @@ class MainViewController: UIViewController {
     let mainView = BoardView()
     
     //MARK: Method
+    
+    func navBarConfig() {
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(customView: mainView.changePasswordButton)
+    }
     
     func addPostButtonClicked() {
         let vc = EditPostViewController()
@@ -119,6 +123,11 @@ class MainViewController: UIViewController {
                 APIService.fetchPost(token: self.token!, start: 0, limit: 20) { (board, error) in
                     guard let error = error else {
                         self.viewModel.boardViewModel.accept(board!)
+                        self.viewModel.fetchPostCount { (error) in
+                            if let error = error {
+                                self.APIErrorHandler(error: error, message: "포스트 정보를 받아오는 것을 실패했습니다.")
+                            }
+                        }
                         self.mainView.tableView.refreshControl?.endRefreshing()
                         return
                     }
@@ -127,6 +136,19 @@ class MainViewController: UIViewController {
             })
             .disposed(by: disposeBag)
 
+        mainView.changePasswordButton.rx.tap
+            .bind { [weak self] in
+                guard let self = self else { return }
+                let vc = ChangePasswordViewController()
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.postCount
+            .bind { [weak self](count) in
+                self?.counts = count
+            }
+            .disposed(by: disposeBag)
     }
     
     //MARK: LifeCycle
@@ -137,17 +159,17 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navBarConfig()
         self.title = "새싹농장"
         mainView.tableView.register(BoardTableViewCell.self, forCellReuseIdentifier: BoardTableViewCell.reuseIdentifier)
         mainView.tableView.rowHeight = UITableView.automaticDimension
         bind()
         
-        viewModel.fetchBoard(start: 0, limit: limit)
-        APIService.fetchPostCount(token: UserDefaults.standard.string(forKey: "token")!) { [weak self](count, error) in
-            guard let count = count else {
-                return
+        viewModel.fetchBoard(start: start, limit: limit)
+        viewModel.fetchPostCount { [weak self](error) in
+            if let error = error {
+                self?.APIErrorHandler(error: error, message: "포스트 정보를 받아오는 것을 실패했습니다.")
             }
-            self?.counts = count
         }
         print(token!)
     }

@@ -26,30 +26,31 @@ class ChangePasswordView: UIView, ViewRepresentable {
     
     func setUpView() {
         addSubview(currentPasswordTextField)
-        currentPasswordTextField.isSecureTextEntry = true
-        currentPasswordTextField.autocorrectionType = .no
-        currentPasswordTextField.autocapitalizationType = .none
-        currentPasswordTextField.backgroundColor = .white
-        currentPasswordTextField.placeholder = "현재 비밀번호"
+        textFieldConfig(textField: currentPasswordTextField, placeHolder: "현재 비밀번호")
         
         addSubview(newPasswordTextField)
-        newPasswordTextField.isSecureTextEntry = true
-        newPasswordTextField.autocorrectionType = .no
-        newPasswordTextField.autocapitalizationType = .none
-        newPasswordTextField.backgroundColor = .white
-        newPasswordTextField.placeholder = "새로운 비밀번호"
+        textFieldConfig(textField: newPasswordTextField, placeHolder: "새로운 비밀번호")
         
         addSubview(confirmNewPasswordTextField)
-        confirmNewPasswordTextField.isSecureTextEntry = true
-        confirmNewPasswordTextField.autocorrectionType = .no
-        confirmNewPasswordTextField.autocapitalizationType = .none
-        confirmNewPasswordTextField.backgroundColor = .white
-        confirmNewPasswordTextField.placeholder = "비밀번호 확인"
+        textFieldConfig(textField: confirmNewPasswordTextField, placeHolder: "비밀번호 확인")
         
         addSubview(confirmButton)
         confirmButton.backgroundColor = .systemBlue
         confirmButton.setTitle("변경하기", for: .normal)
         confirmButton.setTitleColor(.white, for: .normal)
+        
+        self.backgroundColor = .systemBackground
+    }
+    
+    func textFieldConfig(textField: UITextField, placeHolder: String) {
+        textField.isSecureTextEntry = true
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.backgroundColor = .white
+        textField.borderStyle = .roundedRect
+        textField.layer.borderColor = UIColor.label.cgColor
+        textField.layer.borderWidth = 1
+        textField.placeholder = placeHolder
     }
     
     func setUpConstraints() {

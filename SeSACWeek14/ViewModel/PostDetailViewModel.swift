@@ -16,7 +16,7 @@ class PostDetailViewModel {
     var commentText = BehaviorRelay(value: "")
     var deleteObservable = PublishSubject<APIError?>()
     var editCommentText = BehaviorRelay(value: "")
-    var fetchCommentObservable = PublishSubject<APIError>()
+    var fetchCommentErrorObservable = PublishSubject<APIError>()
     var fetchPostObservable = PublishSubject<APIError>()
     
     
@@ -26,12 +26,15 @@ class PostDetailViewModel {
         guard let token = token else {
             return
         }
+        print("fetch Post")
         let postId = boardElement.value.id
         LoadingIndicator.shared.showIndicator()
         APIService.fetchDetailPost(token: token, postId: postId) { [weak self](element, error) in
             guard let self = self else { return }
             guard let error = error else {
                 self.boardElement.accept(element!)
+                LoadingIndicator.shared.hideIndicator()
+                print("fetch Post Completed")
                 return
             }
             self.fetchPostObservable.onNext(error)
@@ -62,13 +65,14 @@ class PostDetailViewModel {
         guard let token = token else {
             return
         }
+        print("fetch Comment")
         let postId = boardElement.value.id
         
         LoadingIndicator.shared.showIndicator()
         APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
-                self?.fetchCommentObservable.onNext(error!)
+                self?.fetchCommentErrorObservable.onNext(error!)
                 return
             }
             guard let comments = element else {
@@ -76,6 +80,7 @@ class PostDetailViewModel {
             }
             self?.commentsObservable
                 .onNext(comments)
+            print("fetch Comment Completed")
         }
     }
     
@@ -89,7 +94,7 @@ class PostDetailViewModel {
         APIService.fetchComment(token: token, postId: postId) { [weak self](element, error) in
             LoadingIndicator.shared.hideIndicator()
             guard error == nil else {
-                self?.fetchCommentObservable.onNext(error!)
+                self?.fetchCommentErrorObservable.onNext(error!)
                 return
             }
             guard let comments = element else {
